@@ -6,7 +6,11 @@ function Layout({ title, description, children }) {
         {description && <meta name="description" content={description}></meta>}
       </div>
       <div className="main-container">{children}</div>
-      <div className="footer">app Header</div>
+      <div className="flex flex-row">
+        <div>one</div>
+        <div>two</div>
+        <div>three</div>
+      </div>
     </>
   );
 }

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 import Layout from "../components/Layout";
 import { client } from "../utils";
-import ProductItem from "../components/ProductItem";
+import ProductContainer from "../components/ProductContainer";
 
 export default function Home() {
   const [state, setState] = useState({
@@ -29,16 +29,11 @@ export default function Home() {
   return (
     <Layout>
       {loading ? (
-        <div className="text-3xl bg-blue-600">Heading</div>
+        <div className="text-3xl">Loading....</div>
       ) : error ? (
         <div>{error}</div>
       ) : (
-        <div>
-          <h1 className="text-3xl underline">Products</h1>
-          {products.map((product) => (
-            <ProductItem product={product} key={product._id} />
-          ))}
-        </div>
+        <ProductContainer products={products} />
       )}
     </Layout>
   );

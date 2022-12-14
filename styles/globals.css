@@ -1,6 +1,6 @@
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 html,
 body {
@@ -17,4 +17,13 @@ a {
 
 * {
   box-sizing: border-box;
+}
+.product-main-container {
+  @apply bg-gray-100 flex flex-col justify-center;
+}
+.product-list-container {
+  @apply relative m-3 flex flex-wrap mx-auto justify-center;
+}
+.card {
+  @apply relative max-w-sm min-w-[340px] bg-white shadow-md rounded-3xl p-2 mx-3 my-3 cursor-pointer;
 }

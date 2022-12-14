@@ -8,10 +8,12 @@ function ProductItem({ product }) {
   return (
     <div className="card">
       <div className="overflow-x-hidden rounded-2xl relative">
-        <img
-          className="h-70 rounded-2xl w-full object-cover"
-          src={urlForThubnail(product.image[0]).url()}
-        />
+        <Link href={`/product/${product.slug.current}`}>
+          <img
+            className="h-70 rounded-2xl w-full object-cover"
+            src={urlForThubnail(product.image[0]).url()}
+          />
+        </Link>
         <p className="absolute right-2 top-2 bg-white rounded-full p-2 cursor-pointer group">
           <svg
             xmlns="http://www.w3.org/2000/svg"

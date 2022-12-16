@@ -1,5 +1,7 @@
 import config from "./config";
 import client from "./client";
+import signToken from "./auth";
+import loginValidation from "./loginValidation";
 import { urlForThubnail } from "./image";
 
-export { config, client, urlForThubnail };
+export { config, client, signToken, urlForThubnail, loginValidation };

@@ -27,3 +27,9 @@ a {
 .card {
   @apply relative max-w-sm min-w-[340px] bg-white shadow-md rounded-3xl p-2 mx-3 my-3 cursor-pointer;
 }
+
+input,
+select,
+textarea {
+  @apply rounded border p-2 outline-none ring-indigo-100 focus:ring;
+}

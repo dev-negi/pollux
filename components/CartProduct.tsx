@@ -1,6 +1,8 @@
 import Image from "next/image";
+import { useDispatch } from "react-redux";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
 
+import { removeFromBasket } from "../redux/basketSlice";
 import { urlForThubnail } from "../utils";
 interface Props {
   items: Product[];
@@ -8,7 +10,13 @@ interface Props {
 }
 
 function CartProduct({ id, items }: Props) {
-  const removeItemFromBasket = () => {};
+  console.log("cart product:-", items);
+  const dispatch = useDispatch();
+  const removeItemFromBasket = () => {
+    dispatch(removeFromBasket({ id }));
+  };
+  const totalCartValue = items.reduce((total, item) => total + item.price, 0);
+
   return (
     <div className="flex flex-col gap-x-4 border-b border-gray-300 pb-5 lg:flex-row lg:items-center">
       <div className="relative h-44 w-44">
@@ -37,7 +45,7 @@ function CartProduct({ id, items }: Props) {
         <div className="flex flex-col items-end space-y-4">
           <h4 className="text-xl font-semibold lg:text-2xl">
             <div>
-              {items.reduce((total, item) => total + item.price, 0)}
+              {totalCartValue}
               USD
             </div>
           </h4>

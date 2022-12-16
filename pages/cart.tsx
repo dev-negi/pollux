@@ -7,10 +7,11 @@ import { XCircleIcon } from "@heroicons/react/outline";
 import Layout from "../components/Layout";
 import CartProduct from "../components/CartProduct";
 import Button from "../rango/Button";
-import { selectBasketItems } from "../redux/basketSlice";
+import { selectBasketItems, selectBasketTotal } from "../redux/basketSlice";
 
 function Cart() {
   const items = useSelector(selectBasketItems);
+  const basketTotal = useSelector(selectBasketTotal);
   const router = useRouter();
   const [groupedItemsInBasket, setGroupedItemsInBasket] = useState(
     {} as { [key: string]: Product[] }
@@ -53,9 +54,7 @@ function Cart() {
                 <div className="pb-4">
                   <div className="flex justify-between">
                     <p>Subtotal</p>
-                    <p>
-                      {/* <Currency quantity={basketTotal} currency="USD" /> */}
-                    </p>
+                    <p>{basketTotal}</p>
                   </div>
                   <div className="flex justify-between">
                     <p>Shipping</p>

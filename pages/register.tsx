@@ -13,7 +13,6 @@ function RegisterPage() {
   );
   const { name, email, password } = values;
   async function registerUser() {
-    // check password match
     console.log("registerUser:-", values);
     try {
       const { data } = await axios.post("/api/users/register", {
@@ -21,15 +20,10 @@ function RegisterPage() {
         email,
         password,
       });
-      console.log("data:-", data);
-      // dispatch({ type: 'USER_LOGIN', payload: data });
-      // jsCookie.set('userInfo', JSON.stringify(data));
-      // router.push('/');
     } catch (error) {
       // TODO: handle errors
       console.log(getRegisterError(error));
     }
-    // setLoggedIn(true);
   }
 
   const [loggedIn, setLoggedIn] = useState(false);

@@ -9,7 +9,6 @@ import useForm from "../hooks/useForm";
 import useToaster from "../hooks/useToaster";
 import {
   addToToastList,
-  selectToastItemsCount,
   removeFromToastList,
   selectToastItems,
 } from "../redux/toastSlice";
@@ -17,7 +16,6 @@ import {
 import { loginValidation, getRegisterError, showToaster } from "../utils";
 
 function LoginPage() {
-  // const dispatch = useDispatch();
   const { showToaster } = useToaster();
   const toastCount = useSelector(selectToastItems);
   const [list, setList] = useState([]);
@@ -38,8 +36,6 @@ function LoginPage() {
         email,
         password,
       });
-      // dispatch({ type: 'USER_LOGIN', payload: data });
-      // jsCookie.set('userInfo', JSON.stringify(data));
       router.push(redirect || "/");
     } catch (error) {
       const errorMessage = getRegisterError(error);
@@ -49,18 +45,6 @@ function LoginPage() {
         type: "error",
         delay: 5000,
       });
-      // const id = toastCount + 1;
-      // const removeToster = () => {
-      //   dispatch(removeFromToastList({ id }));
-      // };
-      // dispatch(
-      //   addToToastList({
-      //     id,
-      //     message: errorMessage,
-      //     type: "error",
-      //     delay: 5000,
-      //   })
-      // );
     }
   }
 

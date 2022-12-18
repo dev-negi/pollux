@@ -38,7 +38,7 @@ export const toastSlice = createSlice({
         newToast.splice(index, 1);
       } else {
         console.log(
-          `Can't remvoe product (id:${action.payload.id}) as its not in basket!`
+          `Can't remvoe toaster (id:${action.payload.id}) as its not in toast list!`
         );
       }
       state.items = newToast;
@@ -51,8 +51,6 @@ export const { addToToastList, removeFromToastList } = toastSlice.actions;
 
 //selectors
 export const selectToastItems = (state: RootState) => state.toaster.items;
-export const selectToastItemsCount = (state: RootState) =>
-  state.toaster.items.length;
 export const selectToastItemsWithId = (state: RootState, id: string) => {
   state.toaster.items.filter((item: Toast) => item._id === id);
 };

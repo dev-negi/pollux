@@ -4,7 +4,7 @@ import axios from "axios";
 
 import Layout from "../components/Layout";
 import useForm from "../hooks/useForm";
-import { loginValidation } from "../utils";
+import { loginValidation, getRegisterError } from "../utils";
 
 function RegisterPage() {
   const { values, errors, handleChange, handleSubmit } = useForm(
@@ -21,13 +21,15 @@ function RegisterPage() {
         email,
         password,
       });
+      console.log("data:-", data);
       // dispatch({ type: 'USER_LOGIN', payload: data });
       // jsCookie.set('userInfo', JSON.stringify(data));
       // router.push('/');
     } catch (error) {
       // TODO: handle errors
+      console.log(getRegisterError(error));
     }
-    setLoggedIn(true);
+    // setLoggedIn(true);
   }
 
   const [loggedIn, setLoggedIn] = useState(false);

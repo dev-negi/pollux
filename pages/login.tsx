@@ -1,19 +1,69 @@
 import Link from "next/link";
 import { useState } from "react";
+import { useRouter } from "next/router";
+import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
 
 import Layout from "../components/Layout";
 import useForm from "../hooks/useForm";
-import { loginValidation } from "../utils";
+import useToaster from "../hooks/useToaster";
+import {
+  addToToastList,
+  selectToastItemsCount,
+  removeFromToastList,
+  selectToastItems,
+} from "../redux/toastSlice";
+
+import { loginValidation, getRegisterError, showToaster } from "../utils";
 
 function LoginPage() {
-    
-  function login() {
-    setLoggedIn(true);
-  }
+  // const dispatch = useDispatch();
+  const { showToaster } = useToaster();
+  const toastCount = useSelector(selectToastItems);
+  const [list, setList] = useState([]);
+  const [position, setPosition] = useState("top-left");
+  let [checkValue, setCheckValue] = useState(false);
+  const [autoDeleteTime, setAutoDeleteTime] = useState(300);
+
+  const router = useRouter();
+  const { redirect } = router.query;
   const { values, errors, handleChange, handleSubmit } = useForm(
     login,
     loginValidation
   );
+  const { email, password } = values;
+  async function login() {
+    try {
+      const { data } = await axios.post("/api/users/login", {
+        email,
+        password,
+      });
+      // dispatch({ type: 'USER_LOGIN', payload: data });
+      // jsCookie.set('userInfo', JSON.stringify(data));
+      router.push(redirect || "/");
+    } catch (error) {
+      const errorMessage = getRegisterError(error);
+      showToaster({
+        id: toastCount.length + 1,
+        message: errorMessage,
+        type: "error",
+        delay: 5000,
+      });
+      // const id = toastCount + 1;
+      // const removeToster = () => {
+      //   dispatch(removeFromToastList({ id }));
+      // };
+      // dispatch(
+      //   addToToastList({
+      //     id,
+      //     message: errorMessage,
+      //     type: "error",
+      //     delay: 5000,
+      //   })
+      // );
+    }
+  }
+
   const [loggedIn, setLoggedIn] = useState(false);
 
   return (

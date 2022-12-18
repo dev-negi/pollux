@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 import { useRouter } from "next/router";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
@@ -40,10 +41,10 @@ function LoginPage() {
     } catch (error) {
       const errorMessage = getRegisterError(error);
       showToaster({
-        id: toastCount.length + 1,
+        id: uuidv4(),
         message: errorMessage,
         type: "error",
-        delay: 5000,
+        delay: 50000,
       });
     }
   }

@@ -12,7 +12,7 @@ function useToaster() {
   const [delayTime, setDelayTime] = useState(null);
   const [currentId, setCurrentId] = useState(null);
   const items = useSelector(selectToastItems);
-
+  let interval;
   const showToaster = ({ id, message, type, delay }) => {
     dispatch(
       addToToastList({
@@ -28,10 +28,12 @@ function useToaster() {
 
   const removeToaster = (id) => {
     dispatch(removeFromToastList({ id }));
+    if (interval) {
+      clearInterval(interval);
+    }
   };
 
   useEffect(() => {
-    let interval;
     if (delayTime > 0) {
       interval = setTimeout(() => {
         dispatch(removeFromToastList({ id: currentId }));

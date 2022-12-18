@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import checkIcon from "./assets/check.svg";
 
 export interface ToastProps {
   id: string;
@@ -9,16 +8,15 @@ export interface ToastProps {
   duartion?: number;
 }
 
-const Toast: React.FC<ToastProps[]> = ({ list }) => {
+const Toast: React.FC<ToastProps[]> = ({ list, remove }) => {
   return (
-    <>
+    <div className="absolute">
       {list.map((toast) => {
         const { id, message } = toast;
         return (
           <div
-            id="alert"
             key={id}
-            className="fixed flex z-10 h-10 p-2 justify-between align-middle rounded-md border top-8 right-8 transition-all delay-150 easy-in-out bg-indigo-500"
+            className="relative flex z-10 h-10 p-2 justify-between bg-indigo-500 mt-4"
           >
             <div className="flex p-4 items-center justify-center">
               <svg
@@ -37,11 +35,11 @@ const Toast: React.FC<ToastProps[]> = ({ list }) => {
               </svg>
             </div>
             <div className="flex">{message}</div>
-            <div onClick="">close</div>
+            <div onClick={() => remove(id)}>close</div>
           </div>
         );
       })}
-    </>
+    </div>
   );
 };
 

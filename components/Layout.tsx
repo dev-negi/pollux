@@ -5,10 +5,12 @@ import Footer from "./Footer";
 import { brandName } from "../constant";
 import { useSelector } from "react-redux";
 import { selectToastItems } from "../redux/toastSlice";
+import useToaster from "../hooks/useToaster";
 import Toast from "../rango/Toast";
 
 function Layout({ title, description, children }) {
   const toastList = useSelector(selectToastItems);
+  const { removeToaster } = useToaster();
 
   return (
     <>
@@ -18,7 +20,9 @@ function Layout({ title, description, children }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="flex min-h-screen flex-col justify-between">
-        {toastList.length > 0 ? <Toast list={toastList} /> : null}
+        {toastList.length > 0 ? (
+          <Toast list={toastList} remove={removeToaster} />
+        ) : null}
         <Header />
         <main className="container m-auto mt-4 px-4">{children}</main>
         <Footer />

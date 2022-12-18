@@ -1,19 +1,54 @@
 import Link from "next/link";
 import { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
+import { useRouter } from "next/router";
+import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
 
 import Layout from "../components/Layout";
 import useForm from "../hooks/useForm";
-import { loginValidation } from "../utils";
+import useToaster from "../hooks/useToaster";
+import {
+  addToToastList,
+  removeFromToastList,
+  selectToastItems,
+} from "../redux/toastSlice";
+
+import { loginValidation, getRegisterError, showToaster } from "../utils";
 
 function LoginPage() {
-    
-  function login() {
-    setLoggedIn(true);
-  }
+  const { showToaster } = useToaster();
+  const toastCount = useSelector(selectToastItems);
+  const [list, setList] = useState([]);
+  const [position, setPosition] = useState("top-left");
+  let [checkValue, setCheckValue] = useState(false);
+  const [autoDeleteTime, setAutoDeleteTime] = useState(300);
+
+  const router = useRouter();
+  const { redirect } = router.query;
   const { values, errors, handleChange, handleSubmit } = useForm(
     login,
     loginValidation
   );
+  const { email, password } = values;
+  async function login() {
+    try {
+      const { data } = await axios.post("/api/users/login", {
+        email,
+        password,
+      });
+      router.push(redirect || "/");
+    } catch (error) {
+      const errorMessage = getRegisterError(error);
+      showToaster({
+        id: uuidv4(),
+        message: errorMessage,
+        type: "error",
+        delay: 50000,
+      });
+    }
+  }
+
   const [loggedIn, setLoggedIn] = useState(false);
 
   return (

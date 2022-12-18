@@ -2,7 +2,7 @@ import nc from "next-connect";
 import bcrypt from "bcryptjs";
 import axios from "axios";
 
-import { config, signToken } from "../../../utils";
+import { client, config, signToken } from "../../../utils";
 
 const handler = nc();
 
@@ -20,8 +20,18 @@ handler.post(async (req, res) => {
       },
     },
   ];
+
+  const existUser = await client.fetch(
+    `*[_type == "user" && email == $email][0]`,
+    {
+      email: req.body.email,
+    }
+  );
+  if (existUser) {
+    console.log("in user exist");
+    return res.status(401).send({ message: "Email already exists" });
+  }
   const apiUrl = `https://${projectId}.api.sanity.io/v1/data/mutate/${dataset}?returnIds=true`;
-  console.log("apiUrl:-", apiUrl);
   const { data } = await axios.post(
     apiUrl,
     { mutations: createMutations },

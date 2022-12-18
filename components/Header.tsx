@@ -5,7 +5,6 @@ import { useSelector } from "react-redux";
 import { selectBasketItems } from "../redux/basketSlice";
 function Header({ brandName }) {
   const items = useSelector(selectBasketItems);
-
   return (
     <header>
       <nav className="flex h-12 items-center px-4 justify-between shadow-md">

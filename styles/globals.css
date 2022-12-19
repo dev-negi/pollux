@@ -21,7 +21,7 @@ a {
   box-sizing: border-box;
 }
 .product-main-container {
-  @apply bg-gray-100 flex flex-col justify-center;
+  @apply flex flex-col justify-center;
 }
 .product-list-container {
   @apply relative m-3 flex flex-wrap mx-auto justify-center;
@@ -34,4 +34,8 @@ input,
 select,
 textarea {
   @apply rounded border p-2 outline-none ring-indigo-100 focus:ring;
+}
+
+.header-menu-link {
+  @apply relative mr-10 after:content-[''] after:block after:w-0 after:h-[2px] after:bg-black after:transition-all hover:duration-1000 hover:after:w-full;
 }

@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@heroicons/react": "^2.0.13",
+    "@next/font": "^13.0.7",
     "@reduxjs/toolkit": "^1.9.1",
     "@sanity/client": "^3.4.1",
     "@sanity/image-url": "^1.0.1",

@@ -1,11 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import basketReducer from "./basketSlice";
 import toasterReducer from "./toastSlice";
+import mobileAppSlice from "./mobileAppSlice";
 
 export const store = configureStore({
   reducer: {
     basket: basketReducer,
     toaster: toasterReducer,
+    mobile: mobileAppSlice,
   },
 });
 

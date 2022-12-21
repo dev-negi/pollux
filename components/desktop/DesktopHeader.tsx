@@ -30,12 +30,24 @@ function DesktopHeader({ brandName, itemInCart }) {
           <div className="">
             <nav className="">
               <ul className="flex justify-between hover:bottom-1 ">
-                <li className="header-menu-link">Home</li>
-                <li className="header-menu-link">Infent</li>
-                <li className="header-menu-link">Boys</li>
-                <li className="header-menu-link">Girls</li>
-                <li className="header-menu-link">Party Wear</li>
-                <li className="header-menu-link">Ethinc</li>
+                <li className="header-menu-link">
+                  <Link href="/">Home</Link>
+                </li>
+                <li className="header-menu-link">
+                  <Link href="/">Infent</Link>
+                </li>
+                <li className="header-menu-link">
+                  <Link href="/">Boys</Link>
+                </li>
+                <li className="header-menu-link">
+                  <Link href="/">Girls</Link>
+                </li>
+                <li className="header-menu-link">
+                  <Link href="/">Party Wear</Link>
+                </li>
+                <li className="header-menu-link">
+                  <Link href="/">Ethinc</Link>
+                </li>
               </ul>
             </nav>
           </div>
@@ -53,11 +65,12 @@ function DesktopHeader({ brandName, itemInCart }) {
             </div>
           </div>
           <div className="flex justify-center items-center">
-            <span className="relative text-[12px] left-11 top-3 font-bold bg-yellow-200 rounded-full pr-2 pl-2 pt-1 pb-1">
+            <span className="relative text-[12px] left-10 top-3 font-bold bg-yellow-200 rounded-full pr-2 pl-2 pt-1 pb-1">
               {itemInCart}
             </span>
-            <ShoppingBagIcon className="w-8 h-8" />
-            <div className="pl-4 text-xs"></div>
+            <Link href="/cart">
+              <ShoppingBagIcon className="w-6 h-6" />
+            </Link>
           </div>
         </div>
       </div>

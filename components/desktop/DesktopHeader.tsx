@@ -14,7 +14,7 @@ function DesktopHeader({ brandName, itemInCart }) {
   const mainDiv =
     offset > 350
       ? "flex fixed pl-10 pr-10 pt-3 pb-3 w-screen z-50 bg-white transition ease-in duration-500 shadow-lg"
-      : "flex p-10 relative h-auto transition ease-out duration-500 opacity-1";
+      : "flex p-10 z-50 relative h-auto transition ease-out duration-500 opacity-1";
   useEffect(() => {
     const onScroll = () => setOffset(window.pageYOffset);
     // clean up code

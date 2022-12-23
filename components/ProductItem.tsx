@@ -1,8 +1,8 @@
-import Link from "next/link";
-import Image from "next/image";
+import Link from 'next/link'
+import Image from 'next/image'
 
-import { urlForThubnail } from "../utils";
-import ProductImage from "./ProductImage";
+import { urlForThubnail } from '../utils'
+import ProductImage from './ProductImage'
 
 function ProductItem({ product }) {
   return (
@@ -56,7 +56,7 @@ function ProductItem({ product }) {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default ProductItem;
+export default ProductItem

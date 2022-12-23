@@ -1,34 +1,27 @@
-import Link from "next/link";
-import { useState } from "react";
+import Link from 'next/link'
+import type { GetServerSideProps } from 'next'
+import { useState } from 'react'
 
-import { client } from "../utils";
-import Layout from "../components/Layout";
-import HeroImageCarousel from "../components/carousel/HeroImageCarousel";
+import { client, fetchHomeHeroImages, fetchCategories } from '../utils'
+import Layout from '../components/Layout'
+import HeroImageCarousel from '../components/carousel/HeroImageCarousel'
 
 export async function getServerSideProps(context) {
-  let results = [],
-    error = null;
-  try {
-    results = await client.fetch(
-      `*[_type == "appimages" && type == "home-hero-carousel"]`
-    );
-  } catch (error) {
-    error = error.message;
-  }
+  const results = await fetchHomeHeroImages()
 
   return {
-    props: { error, results },
-  };
+    props: { results },
+  }
 }
 
 function HomePage(props) {
-  const { results, error } = props;
+  const { results } = props
 
   return (
     <Layout title="HomePage">
       <HeroImageCarousel data={results} />
     </Layout>
-  );
+  )
 }
 
-export default HomePage;
+export default HomePage

@@ -1,16 +1,11 @@
 export default {
-  name: 'productVariant',
-  title: 'Product Variant',
+  name: 'variant',
+  title: 'Variant',
   type: 'document',
   fields: [
     {
       name: 'title',
       title: 'Title',
-      type: 'string',
-    },
-    {
-      name: 'type',
-      title: 'Type',
       type: 'string',
     },
     {
@@ -41,7 +36,15 @@ export default {
     {
       name: 'barcode',
       title: 'barcode',
-      type: 'number',
+      type: 'string',
+    },
+    {
+      name: 'varianttype',
+      title: 'VarintType',
+      type: 'reference',
+      to: {
+        type: 'varianttype',
+      },
     },
     {
       name: 'images',

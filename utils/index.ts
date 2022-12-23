@@ -6,6 +6,7 @@ import getRegisterError from './getRegisterError'
 import { urlForThubnail } from './image'
 import { fetchCategories } from './data/fetchCategories'
 import { fetchHomeHeroImages } from './data/fetchHeroHomeImages'
+import { fetchProductDetails } from './data/fetchProductDetails'
 
 export {
   config,
@@ -16,4 +17,5 @@ export {
   getRegisterError,
   fetchCategories,
   fetchHomeHeroImages,
+  fetchProductDetails,
 }

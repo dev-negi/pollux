@@ -1,19 +1,18 @@
-import Link from "next/link";
-import Image from "next/image";
-import { useDispatch } from "react-redux";
+import Link from 'next/link'
+import Image from 'next/image'
+import { useDispatch } from 'react-redux'
 
-import Layout from "./Layout";
-import Button from "../rango/Button";
-import { urlForThubnail } from "../utils";
-import { addToBasket } from "../redux/basketSlice";
+import Layout from './Layout'
+import Button from '../rango/Button'
+import { urlForThubnail } from '../utils'
+import { addToBasket } from '../redux/basketSlice'
 
 function ProductPage({ product }) {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
   const addToBasketHandler = () => {
-    console.log("addToBasket clicked");
-    dispatch(addToBasket(product));
-  };
+    dispatch(addToBasket(product))
+  }
 
   return (
     <Layout>
@@ -58,10 +57,12 @@ function ProductPage({ product }) {
           </div>
           <div className="md:flex-1 px-4">
             <h1 className="mb-2 leading-tight tracking-tight font-bold text-gray-800 text-2xl md:text-3xl">
-              {product.title}
+              {product.name}
             </h1>
             <p className="text-gray-500 text-sm">
-              <a className="text-indigo-600 hover:underline">ABC company</a>
+              <a className="text-indigo-600 hover:underline">
+                {product.vendor}
+              </a>
             </p>
             <div className="flex items-center space-x-4 my-4">
               <div>
@@ -78,6 +79,15 @@ function ProductPage({ product }) {
               exercitationem porro saepe ea harum corrupti vero id laudantium
               enim, libero blanditiis expedita cupiditate a est.
             </p>
+            <div className="">
+              {product?.variant.map((items) => {
+                return (
+                  <div className="" key="items.barcode">
+                    {items.varianttype.value}
+                  </div>
+                )
+              })}
+            </div>
             <div className="flex py-4 space-x-4">
               <Button
                 title="Add To Cart"
@@ -92,7 +102,7 @@ function ProductPage({ product }) {
         </div>
       </div>
     </Layout>
-  );
+  )
 }
 
-export default ProductPage;
+export default ProductPage

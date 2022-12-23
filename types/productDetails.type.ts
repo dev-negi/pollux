@@ -8,6 +8,8 @@ export default interface ProductDetails {
   discount: Discount[]
   image: Image[]
   isdiscount: boolean
+  name: string
+  price: number
   slug: Slug
   tax: number
   variant: Variant[]

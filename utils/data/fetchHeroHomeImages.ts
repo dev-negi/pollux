@@ -6,6 +6,5 @@ export const fetchHomeHeroImages = async () => {
   )
   const data = await res.json()
   const homeHeroImageList: HomeHeroImages[] = data.homeHeroImageList
-  // console.log(' homeHeroImages:-', data)
   return homeHeroImageList
 }

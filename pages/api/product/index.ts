@@ -8,6 +8,7 @@ import ProductDetails from '../../../types/productDetails.type'
 const query = groq`*[_type == "product" && slug.current == $slug] {
   _id,
     name,
+    price,
     details,
     slug,
     vendor,

@@ -3,5 +3,6 @@ import blockContent from './blockContent'
 import category from './category'
 import productVariant from './productVariant'
 import user from './user'
+import appImages from './appImages'
 
-export const schemaTypes = [product, blockContent, category, productVariant, user]
+export const schemaTypes = [product, blockContent, category, productVariant, user, appImages]

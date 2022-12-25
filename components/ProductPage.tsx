@@ -80,7 +80,7 @@ function ProductPage({ product }) {
               enim, libero blanditiis expedita cupiditate a est.
             </p>
             <div className="">
-              {product?.variant.map((items) => {
+              {product.variant?.map((items) => {
                 return (
                   <div className="" key="items.barcode">
                     {items.varianttype.value}

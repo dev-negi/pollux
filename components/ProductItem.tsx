@@ -9,10 +9,12 @@ function ProductItem({ product }) {
     <div className="card">
       <div className="overflow-x-hidden rounded-2xl relative">
         <Link href={`/product/${product.slug.current}`}>
-          <img
-            className="h-70 rounded-2xl w-full object-cover"
-            src={urlForThubnail(product.image[0]).url()}
-          />
+          {product.image?.length > 0 ? (
+            <img
+              className="h-70 rounded-2xl w-full object-cover"
+              src={urlForThubnail(product?.image[0])?.url()}
+            />
+          ) : null}
         </Link>
         <p className="absolute right-2 top-2 bg-white rounded-full p-2 cursor-pointer group">
           <svg

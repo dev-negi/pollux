@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=League+Spartan:wght@100&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@100&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -39,3 +39,32 @@ textarea {
 .header-menu-link {
   @apply relative mr-10 after:content-[''] after:block after:w-0 after:h-[2px] after:bg-black after:transition-all hover:duration-1000 hover:after:w-full;
 }
+
+/* Admin CSS STart */
+.admin-container {
+  display: grid;
+  width: 100%;
+  height: auto;
+  grid-template-columns: 200px 1fr 1fr;
+  grid-template-rows: 100px 1fr 1fr 100px;
+  grid-gap: 1rem;
+  grid-template-areas:
+    'header header header'
+    'sidebar main-content main-content'
+    'sidebar main-content main-content'
+    'footer footer footer';
+}
+.grid-area-header {
+  grid-area: header;
+}
+.grid-area-sidebar {
+  grid-area: sidebar;
+}
+.grid-area-main-content {
+  grid-area-main-content: main-content;
+}
+.grid-area-footer {
+  grid-area: footer;
+}
+
+/* Admin CSS end  */

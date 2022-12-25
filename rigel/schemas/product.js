@@ -47,6 +47,16 @@ export default {
       type: 'string',
     },
     {
+      name: 'status',
+      title: 'Status',
+      type: 'string',
+    },
+    {
+      name: 'inventory',
+      title: 'Inventory',
+      type: 'number',
+    },
+    {
       name: 'hscode',
       title: 'Harmonized System Code',
       type: 'string',

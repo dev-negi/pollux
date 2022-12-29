@@ -44,7 +44,10 @@ export default {
     {
       name: 'vendor',
       title: 'Vendor',
-      type: 'string',
+      type: 'reference',
+      to: {
+        type: 'vendor',
+      },
     },
     {
       name: 'status',

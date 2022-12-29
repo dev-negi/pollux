@@ -12,32 +12,25 @@ const startCase = (value) => {
     .trim()
 }
 
-const showColumnNames = ['_id', 'name', 'slug', 'status', 'vendor', 'inventory']
-function buildColumns(obj) {
-  const slug = obj.slug?.current
-
+const showColumnNames = ['_id', 'name', 'slug', 'status', 'inventory', 'vendor']
+function buildColumns() {
   const resultColumn = []
-  for (const key in obj) {
-    if (showColumnNames.indexOf(key) !== -1) {
-      let header = {
-        Header: startCase(key),
-        accessor: key,
-      }
-      if (key === '_id') {
-        header.Header = '#'
-        header.Cell = ({ row }) => {
-          return parseInt(row.id) + 1
-        }
-      }
-
-      // if (key === 'name') {
-      //   header.Cell = (rows) => <a href="ur"> project details</a>
-      // }
-      resultColumn.push(header)
+  showColumnNames.forEach((col) => {
+    let header = {
+      Header: startCase(col),
+      accessor: col,
     }
-  }
 
-  console.log('resultColumn:-', resultColumn)
+    if (col === '_id') {
+      header.Header = '#'
+      header.Cell = ({ row }) => {
+        return parseInt(row.id) + 1
+      }
+    }
+
+    resultColumn.push(header)
+  })
+
   return resultColumn
 }
 

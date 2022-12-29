@@ -1,38 +1,41 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react'
 
 const useForm = (callback, validate) => {
-  const [values, setValues] = useState({});
-  const [errors, setErrors] = useState({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [values, setValues] = useState({})
+  const [errors, setErrors] = useState({})
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   useEffect(() => {
+    console.log('errors:-', errors)
     if (Object.keys(errors).length === 0 && isSubmitting) {
-      callback();
+      callback()
+      setValues({})
     }
-  }, [errors]);
+  }, [errors])
 
   const handleSubmit = (event) => {
     if (event) {
-      event.preventDefault();
+      event.preventDefault()
     }
-    setErrors(validate(values));
-    setIsSubmitting(true);
-  };
+    setErrors(validate(values))
+    setIsSubmitting(true)
+  }
 
-  const handleChange = (event) => {
-    event.persist();
+  const handleChange = (event, cl) => {
+    console.log('event.target.name:-', event.target.name)
+    event.persist()
     setValues((values) => ({
       ...values,
       [event.target.name]: event.target.value,
-    }));
-  };
+    }))
+  }
 
   return {
     handleChange,
     handleSubmit,
     values,
     errors,
-  };
-};
+  }
+}
 
-export default useForm;
+export default useForm

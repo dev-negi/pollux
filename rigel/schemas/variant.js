@@ -40,11 +40,13 @@ export default {
     },
     {
       name: 'varianttype',
-      title: 'VarintType',
-      type: 'reference',
-      to: {
-        type: 'varianttype',
-      },
+      title: 'Varint Type',
+      type: 'string',
+    },
+    {
+      name: 'variantValue',
+      title: 'Varint Value',
+      type: 'string',
     },
     {
       name: 'images',

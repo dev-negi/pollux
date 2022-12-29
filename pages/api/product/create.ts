@@ -13,15 +13,19 @@ export default function handler(
     return
   }
 
-  const { name, title, slug, vendor } = req.body
+  const { name, title, details, slug, vendorId, status, tax, isdiscount } =
+    req.body
   const postData = {
     _type: 'product',
     name,
     title,
+    details,
+    status,
+    tax,
+    isdiscount,
     slug: {
       current: slug,
     },
-    vendor,
   }
 
   const varaintList = req.body?.variant
@@ -29,6 +33,16 @@ export default function handler(
   client.create(postData).then((data) => {
     // Fist Create Product and get Product Id
     const prodcutId = data._id
+
+    // Attach vendoer to product
+    console.log('updated product:-', prodcutId)
+    console.log('updated vendeor:-', vendorId)
+    client
+      .patch(prodcutId)
+      .set({
+        vendor: { _ref: vendorId },
+      })
+      .commit()
 
     if (varaintList?.length > 0) {
       // for Each variant create variant, and update product-variant;
@@ -58,21 +72,3 @@ function createVariant(variant) {
     barcode,
   })
 }
-
-//   let varaintIds = []
-//   if (req.body.variant?.length > 0) {
-//     req.body.variant.forEach(async (variantItem) => {
-//       const { title, name, price, quantity, sku, barcode, type } = variantItem
-//       const data = await client.create({
-//         _type: 'variant',
-//         title,
-//         price,
-//         quantity,
-//         sku,
-//         barcode,
-//       })
-//       varaintIds.push({ _ref: data._id })
-//       //   varaintIds = data._id
-//       console.log('created variant:-', data)
-//     })
-//   }

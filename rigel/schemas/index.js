@@ -7,6 +7,7 @@ import user from './user'
 import appImages from './appImages'
 import discount from './discount'
 import discounttype from './discounttype'
+import vendor from './vendor'
 
 export const schemaTypes = [
   product,
@@ -18,4 +19,5 @@ export const schemaTypes = [
   discounttype,
   variant,
   varianttype,
+  vendor,
 ]

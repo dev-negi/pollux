@@ -1,35 +1,40 @@
-// import Category from '../../types/category.type'
-
 export const createProduct = async (data) => {
-  const data1 = {
-    name: 'product name',
-    title: 'product name',
-    slug: 'blue-kurta-1111',
-    vendor: 'vendeor1',
-    variant: [
-      {
-        title: 'first variant',
-        name: 'first variant',
-        price: 599,
-        quntity: 5,
-        sku: 'vfirst-saa',
-        barcode: '29492392',
-        type: {
-          name: 'size-2',
-          type: 'size',
-          vlaue: '3-6 Month',
-        },
-      },
-    ],
+  const {
+    title,
+    price,
+    details,
+    vendorId,
+    status = 'draft',
+    tax = 5,
+    isdiscount = false,
+  } = data
+
+  const priceInt = parseInt(price)
+  const name = title
+  const slug = title?.trim().split(' ').join('-')
+
+  const body = {
+    name,
+    title,
+    price: priceInt,
+    slug,
+    details,
+    status,
+    tax,
+    isdiscount,
+    vendorId,
   }
-  const url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/product/create`
-  const tokenWithWriteAccess = process.env.SANITY_API_TOKEN
-  const res = await fetch(url, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${tokenWithWriteAccess}`,
-    },
-    body: JSON.stringify(data1),
-  })
+
+  try {
+    const { data } = await fetch('/api/product/create', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
+    })
+  } catch (error) {
+    // TODO: handle errors
+    console.log(error)
+  }
 }

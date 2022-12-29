@@ -9,8 +9,28 @@ export default {
       type: 'string',
     },
     {
+      name: 'type',
+      title: 'Type',
+      type: 'string',
+    },
+    {
       name: 'price',
       title: 'Price',
+      type: 'number',
+    },
+    {
+      name: 'costperitem',
+      title: 'Cost Per Item',
+      type: 'number',
+    },
+    {
+      name: 'comparePrice',
+      title: 'compare price',
+      type: 'number',
+    },
+    {
+      name: 'quantity',
+      title: 'Quntity',
       type: 'number',
     },
     {

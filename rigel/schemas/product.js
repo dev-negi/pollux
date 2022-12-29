@@ -18,6 +18,11 @@ export default {
       type: 'string',
     },
     {
+      name: 'name',
+      title: 'Name',
+      type: 'string',
+    },
+    {
       name: 'slug',
       title: 'Slug',
       type: 'slug',
@@ -39,12 +44,46 @@ export default {
     {
       name: 'vendor',
       title: 'Vendor',
+      type: 'reference',
+      to: {
+        type: 'vendor',
+      },
+    },
+    {
+      name: 'status',
+      title: 'Status',
       type: 'string',
     },
     {
-      name: 'defaultProductVariant',
-      title: 'Default variant',
-      type: 'productVariant',
+      name: 'inventory',
+      title: 'Inventory',
+      type: 'number',
+    },
+    {
+      name: 'hscode',
+      title: 'Harmonized System Code',
+      type: 'string',
+    },
+    {
+      name: 'tax',
+      title: 'tax',
+      type: 'number',
+    },
+    {
+      name: 'isdiscount',
+      title: 'Is Discount',
+      type: 'boolean',
+    },
+    {
+      name: 'discount',
+      title: 'Discount',
+      type: 'array',
+      of: [
+        {
+          type: 'reference',
+          to: {type: 'discount'},
+        },
+      ],
     },
     {
       name: 'tags',
@@ -65,6 +104,17 @@ export default {
         {
           type: 'reference',
           to: {type: 'category'},
+        },
+      ],
+    },
+    {
+      name: 'variant',
+      title: 'Variant',
+      type: 'array',
+      of: [
+        {
+          type: 'reference',
+          to: {type: 'variant'},
         },
       ],
     },

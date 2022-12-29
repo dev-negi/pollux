@@ -1,18 +1,20 @@
-import Link from "next/link";
-import Image from "next/image";
+import Link from 'next/link'
+import Image from 'next/image'
 
-import { urlForThubnail } from "../utils";
-import ProductImage from "./ProductImage";
+import { urlForThubnail } from '../utils'
+import ProductImage from './ProductImage'
 
 function ProductItem({ product }) {
   return (
     <div className="card">
       <div className="overflow-x-hidden rounded-2xl relative">
         <Link href={`/product/${product.slug.current}`}>
-          <img
-            className="h-70 rounded-2xl w-full object-cover"
-            src={urlForThubnail(product.image[0]).url()}
-          />
+          {product.image?.length > 0 ? (
+            <img
+              className="h-70 rounded-2xl w-full object-cover"
+              src={urlForThubnail(product?.image[0])?.url()}
+            />
+          ) : null}
         </Link>
         <p className="absolute right-2 top-2 bg-white rounded-full p-2 cursor-pointer group">
           <svg
@@ -56,7 +58,7 @@ function ProductItem({ product }) {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default ProductItem;
+export default ProductItem

@@ -1,45 +1,25 @@
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useRouter } from 'next/router'
+import { useEffect, useState } from 'react'
 
-import ProductPage from "../../components/ProductPage";
-import { client } from "../../utils";
+import ProductPage from '../../components/ProductPage'
+import { client, fetchProductDetails, createProduct } from '../../utils'
 
-export function getServerSideProps(context) {
+export async function getServerSideProps(context) {
+  // console.log('context:-', context)
+  const productCreated = await createProduct()
+  const product = await fetchProductDetails(context.params.slug)
   return {
-    props: { slug: context.params.slug },
-  };
+    props: { product },
+  }
 }
 
 function Product(props) {
-  const { slug } = props;
-  const [state, setState] = useState({
-    product: null,
-    loading: true,
-    error: "",
-  });
-
-  const { product, loading, error } = state;
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const product = await client.fetch(
-          `*[_type == "product" && slug.current == $slug][0]`,
-          { slug }
-        );
-        setState({ ...state, product, loading: false });
-      } catch (error) {
-        setState({ ...state, error: error.message, loading: false });
-      }
-    };
-
-    fetchData();
-  }, []);
+  const { product } = props
 
   if (!product) {
-    return <div>Product Not Found</div>;
+    return <div>Product Not Found</div>
   }
-  return <ProductPage product={product} />;
+  return <ProductPage product={product} />
 }
 
-export default Product;
+export default Product

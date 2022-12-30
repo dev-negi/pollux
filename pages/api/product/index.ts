@@ -11,7 +11,12 @@ const query = groq`*[_type == "product" && slug.current == $slug] {
     price,
     details,
     slug,
-    vendor,
+    'vendor': vendor -> {
+      _id,
+      name,
+      type,
+      code,
+    },
     tax,
     isdiscount,
     image,
@@ -43,6 +48,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<ProductDetails>
 ) {
+  console.log('query:-', req.query)
   const slug = req.query.slug
   const productDetails = await client.fetch(query, { slug })
   res.status(200).json(productDetails)

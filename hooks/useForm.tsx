@@ -13,7 +13,7 @@ const useForm = (callback, validate) => {
     }
   }, [errors])
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (event, type, index) => {
     if (event) {
       event.preventDefault()
     }
@@ -21,13 +21,39 @@ const useForm = (callback, validate) => {
     setIsSubmitting(true)
   }
 
-  const handleChange = (event, cl) => {
-    console.log('event.target.name:-', event.target.name)
+  const handleChange = (event, type, index) => {
+    // console.log('event.target.name:-', type, index)
+    console.log(
+      'variant:-',
+      event.target.name,
+      'event.target.value:-',
+      event.target.value
+    )
+    console.log(values)
     event.persist()
-    setValues((values) => ({
-      ...values,
-      [event.target.name]: event.target.value,
-    }))
+
+    if (type === 'variant') {
+      if (values.variants === undefined) {
+        values.variants = []
+      }
+      const variantList = values.variants
+      if (variantList[index] === undefined) {
+        variantList[index] = {}
+      }
+      const curentVariant = variantList[index]
+
+      curentVariant[event.target.name] = event.target.value
+
+      setValues((values) => ({
+        ...values,
+        variants: variantList,
+      }))
+    } else {
+      setValues((values) => ({
+        ...values,
+        [event.target.name]: event.target.value,
+      }))
+    }
   }
 
   return {

@@ -1,0 +1,10 @@
+.input-container {
+  display: block;
+  padding: 0.5rem;
+}
+.input-div input {
+  border-style: none;
+  width: 100%;
+  padding: 1rem 1.2rem;
+  color: #333;
+}

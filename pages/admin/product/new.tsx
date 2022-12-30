@@ -4,17 +4,25 @@ import { useState } from 'react'
 import AdminLayout from '../../../components/admin/AdminLayout'
 import FromFields, { VariantFields } from './FormInput'
 import useForm from '../../../hooks/useForm'
-import { loginValidation, fetchVendors, createProduct } from '../../../utils'
+import {
+  loginValidation,
+  fetchVendors,
+  createProduct,
+  fetchVariantType,
+  fetchVariantsByType,
+} from '../../../utils'
 
 export async function getServerSideProps() {
   const vendors = await fetchVendors()
+  const variantTypes = await fetchVariantType()
   return {
-    props: { vendors },
+    props: { vendors, variantTypes },
   }
 }
 
 function NewProduct(props) {
-  const { vendors } = props
+  const { vendors, variantTypes } = props
+  const [variantList, setVariantList] = useState([])
   const [variantId, setVariantId] = useState(1)
   const [prodcutFormData, setProductFormData] = useState([
     {
@@ -45,13 +53,11 @@ function NewProduct(props) {
     },
     {
       id: 5,
-      name: 'slug',
-      type: 'text',
-      lable: 'slug',
-      disabled: true,
-      message: 'Slug will be auto genrated based on product title',
+      type: 'variant',
+      lable: 'Variant',
     },
   ])
+
   const { values, errors, handleChange, handleSubmit } = useForm(
     createNewProduct,
     productFormValidation
@@ -65,7 +71,9 @@ function NewProduct(props) {
   async function createNewProduct() {
     try {
       console.log('value:-', values)
+      // if (values.name) {
       //   createProduct(values)
+      // }
     } catch (error) {
       // TODO: handle errors
       console.log(error)
@@ -74,16 +82,41 @@ function NewProduct(props) {
 
   const [loggedIn, setLoggedIn] = useState(false)
   const addVariant = () => {
-    const id = prodcutFormData.length + 1
+    const id = variantId
 
-    const variantFormData = {
+    const variantData = {
       id,
       type: 'variant',
-      lable: 'Variant',
     }
-    setProductFormData((prevFormData) => [...prevFormData, variantFormData])
+    setVariantList((preVariantList) => [...preVariantList, variantData])
+    setVariantId((prevId) => prevId + 1)
   }
 
+  const handleChangeVariantChange = (event, index) => {
+    handleChange(event, 'variant', index)
+  }
+  const onChangeVarinat = async (event, id) => {
+    const variantTypeValues = await fetchVariantsByType(event.target.value)
+    const index = id - 1
+    const curentVariantList = [...variantList]
+    curentVariantList[index]['variantTypeValues'] = variantTypeValues
+    setVariantList(curentVariantList)
+  }
+
+  const renderVariants = () => {
+    console.log('variantList:-', variantList)
+    return variantList.map((variant, index) => (
+      <VariantFields
+        id={variant.id}
+        onChange={(event) => handleChangeVariantChange(event, index)}
+        errors={errors}
+        values={values}
+        variantTypeValues={variant.variantTypeValues}
+        variantTypes={variantTypes}
+        onChangeVarinat={onChangeVarinat}
+      />
+    ))
+  }
   return (
     <AdminLayout title="Register">
       <form
@@ -93,14 +126,8 @@ function NewProduct(props) {
       >
         <h1 className="mb-4 text-xl">Product</h1>
         {prodcutFormData.map((el) => {
-          console.log('el type:-', el.type)
-          return el.type === 'variant' ? (
-            <VariantFields
-              onChange={handleChange}
-              errors={errors}
-              values={values}
-              {...el}
-            />
+          return el.type === 'variant' && variantList.length > 0 ? (
+            renderVariants()
           ) : (
             <FromFields
               key={el.id}

@@ -1,30 +1,32 @@
-import Head from "next/head";
-import Image from "next/image";
-import { useEffect, useState } from "react";
+import Head from 'next/head'
+import Image from 'next/image'
+import { useEffect, useState } from 'react'
 
-import Layout from "../components/Layout";
-import { client } from "../utils";
-import ProductContainer from "../components/ProductContainer";
+import Layout from '../components/Layout'
+import { client } from '../utils'
+import ProductContainer from '../components/ProductContainer'
 
-export default function Home() {
+export default function Home({ appsettings }) {
   const [state, setState] = useState({
     products: [],
-    error: "",
+    error: '',
     loading: true,
-  });
+  })
 
-  const { loading, error, products } = state;
+  const { loading, error, products } = state
+
   useEffect(() => {
+    //TODO move this fetch funciton /util/data
     const fetchData = async () => {
       try {
-        const products = await client.fetch(`*[_type == "product"]`);
-        setState({ products, loading: false });
+        const products = await client.fetch(`*[_type == "product"]`)
+        setState({ products, loading: false })
       } catch (error) {
-        setState({ loading: false, error: error.message });
+        setState({ loading: false, error: error.message })
       }
-    };
-    fetchData();
-  }, []);
+    }
+    fetchData()
+  }, [])
 
   return (
     <Layout>
@@ -36,5 +38,5 @@ export default function Home() {
         <ProductContainer products={products} />
       )}
     </Layout>
-  );
+  )
 }

@@ -5,14 +5,14 @@ import AdminLeftNav from './AdminLeftNav'
 function AdminLayout({ children }) {
   return (
     <div>
-      <div class="grid md:grid-cols-12 gap-1">
-        <div class="md:col-span-12 p-4">Header</div>
-        <aside class="md:col-span-2 md:pt-0 ">
+      <div className="grid md:grid-cols-12 gap-1">
+        <div className="md:col-span-12 p-4">Header</div>
+        <aside className="md:col-span-2 md:pt-0 ">
           <AdminLeftNav />
         </aside>
-        <main class="md:col-span-10">{children}</main>
+        <main className="md:col-span-10">{children}</main>
 
-        <div class="md:col-span-12 p-4 ">footer</div>
+        <div className="md:col-span-12 p-4 ">footer</div>
       </div>
     </div>
   )

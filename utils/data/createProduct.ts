@@ -7,6 +7,7 @@ export const createProduct = async (data) => {
     status = 'draft',
     tax = 5,
     isdiscount = false,
+    variants,
   } = data
 
   const priceInt = parseInt(price)
@@ -23,6 +24,7 @@ export const createProduct = async (data) => {
     tax,
     isdiscount,
     vendorId,
+    variants,
   }
 
   try {

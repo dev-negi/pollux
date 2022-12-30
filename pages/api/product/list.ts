@@ -10,7 +10,12 @@ const query = groq`*[_type == "product"] {
     price,
     status,
     inventory,
-    vendor,
+    'vendor': vendor -> {
+      _id,
+      name,
+      type,
+      code,
+    },
     'slug': slug.current
 }`
 

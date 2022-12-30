@@ -13,8 +13,17 @@ export default function handler(
     return
   }
 
-  const { name, title, details, slug, vendorId, status, tax, isdiscount } =
-    req.body
+  const {
+    name,
+    title,
+    details,
+    slug,
+    vendorId,
+    status,
+    tax,
+    isdiscount,
+    variants,
+  } = req.body
   const postData = {
     _type: 'product',
     name,
@@ -28,7 +37,7 @@ export default function handler(
     },
   }
 
-  const varaintList = req.body?.variant
+  const varaintList = req.body?.variants
 
   client.create(postData).then((data) => {
     // Fist Create Product and get Product Id
@@ -46,19 +55,33 @@ export default function handler(
 
     if (varaintList?.length > 0) {
       // for Each variant create variant, and update product-variant;
-      varaintList.forEach(async (variant) => {
-        const variantData = await createVariant(variant)
-        client
-          .patch(prodcutId)
-          .set({
-            variant: [{ _ref: variantData._id, _key: `v-${variantData._id}` }],
-          })
-          .commit()
+      const variantData = []
+      varaintList.forEach((variant) => {
+        variantData.push(createVariant(variant))
+      })
+
+      Promise.allSettled(variantData).then((values) => {
+        updateProdctWithVariants(client, prodcutId, values)
       })
     }
 
     res.status(200).json(data)
   })
+}
+
+function updateProdctWithVariants(client, prodcutId, values) {
+  const variantRef = []
+  console.log('values:-', values)
+  values.forEach((data) => {
+    variantRef.push({ _ref: data.value._id, _key: `v-${data.value._id}` })
+  })
+
+  client
+    .patch(prodcutId)
+    .set({
+      variant: variantRef,
+    })
+    .commit()
 }
 
 function createVariant(variant) {

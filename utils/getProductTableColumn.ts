@@ -2,7 +2,26 @@ import Link from 'next/link'
 export function getProductTableColumn(products) {
   //TODO Should not be based out of first entry
   const columns = buildColumns(products[0])
+
   return columns
+}
+
+export function getProdcutTableData(products) {
+  const data = []
+  products.forEach((product) => {
+    const { _id, name, inventory, price, slug, status, title, vendor } = product
+    data.push({
+      _id,
+      name,
+      inventory,
+      price,
+      slug,
+      status,
+      title,
+      vendor: vendor?.name,
+    })
+  })
+  return data
 }
 
 const startCase = (value) => {

@@ -8,6 +8,8 @@ import appImages from './appImages'
 import discount from './discount'
 import discounttype from './discounttype'
 import vendor from './vendor'
+import appSettings from './appSettings'
+import varianttypelist from './varianttypelist'
 
 export const schemaTypes = [
   product,
@@ -20,4 +22,6 @@ export const schemaTypes = [
   variant,
   varianttype,
   vendor,
+  appSettings,
+  varianttypelist,
 ]

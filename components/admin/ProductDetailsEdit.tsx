@@ -50,7 +50,7 @@ function ProductDetailsEdit(props) {
     setProductOnDiscount((prev) => !prev)
   }
   return (
-    <div className="bg-gray-100 p-10 rounded-lg shadow md:w-3/4 lg:w-1/2">
+    <div className="">
       <InputField
         type="text"
         name="name"

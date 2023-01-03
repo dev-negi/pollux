@@ -14,6 +14,7 @@ const initialState = {
     vendor: '',
     variant: '',
     discount: [],
+    variantOption: [],
   },
 }
 
@@ -21,14 +22,17 @@ export const productSlice = createSlice({
   name: 'product',
   initialState,
   reducers: {
-    addProduct: (state: BasketState, action: PayloadAction<Product>) => {
+    addProduct: (state, action: PayloadAction<Product>) => {
       state.item = { ...state.item, ...action.payload }
+    },
+    addProductVariantOption: (state, action) => {
+      state.item = { ...state.item, variantOption: [...action.payload] }
     },
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { addProduct } = productSlice.actions
+export const { addProduct, addProductVariantOption } = productSlice.actions
 
 //selectors
 export const selectProduct = (state: RootState) => state.product.item

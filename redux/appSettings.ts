@@ -21,8 +21,9 @@ export const { updateSettings } = settingsSlice.actions
 
 //selectors
 export const selectAppSettingsAll = (state: RootState) => state.settings.items
-export const selectAppSettingsSlice = (slice) => (state: RootState) =>
-  state.settings.items[slice]
+// export const selectProductStatusType = (state: RootState) => state.settings.items
+export const selectAppSettingsFn = (settingType) => (state: RootState) =>
+  state.settings.items?.appsettings[settingType]
 
 // export const selectToastItemsWithId = (state: RootState, id: string) => {
 //   state.toaster.items.filter((item: Toast) => item._id === id);

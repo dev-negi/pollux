@@ -1,10 +1,21 @@
-import React, { use, useState } from 'react'
+import React, { use, useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
 
 import InputField from '../UI/InputField'
 import ToggleSwitch from '../UI/ToggleSwitch'
-function ProductDetailsEdit(props) {
-  //   const { name, details, price, inventory, tax, isdiscount, vendor } = props
+import CustomSelect from '../UI/CustomSelect'
 
+import { addProduct } from '../../redux'
+import { uploadImages, client } from '../../utils'
+
+function ProductDetailsEdit(props) {
+  const { vendors, productTypes } = props
+  const dispatch = useDispatch()
+  const optionList = productTypes
+    .split('-')
+    .map((type) => ({ name: type, id: type }))
+
+  const [productTypeList, setProductTypeList] = useState(optionList)
   const [productOnDiscount, setProductOnDiscount] = useState(false)
   const [productValues, setProductValues] = useState({
     name: '',
@@ -16,6 +27,14 @@ function ProductDetailsEdit(props) {
     vendor: '',
     status: 'draft',
   })
+
+  const validateProductInput = () => true
+
+  useEffect(() => {
+    if (validateProductInput()) {
+      dispatch(addProduct(productValues))
+    }
+  }, [productValues])
 
   const { name, details, price, inventory, tax, isdiscount, vendor } =
     productValues
@@ -66,7 +85,15 @@ function ProductDetailsEdit(props) {
           onChange={handleChange}
         />
         <div className="">
-          <div className="block mb-2 font-bold text-gray-600">Status</div>
+          <div className="block mb-2 font-bold text-gray-600">
+            <CustomSelect
+              statusOption={productTypeList}
+              defaultOption="Select Status"
+              name="status"
+              label="Product Status"
+              onChange={handleChange}
+            />
+          </div>
         </div>
       </div>
       <div className="grid grid-cols-3 gap-x-10 items-stretch mt-10 m-auto">
@@ -79,10 +106,19 @@ function ProductDetailsEdit(props) {
           onChange={handleChange}
         />
         <div className="">
-          <div className="block mb-2 font-bold text-gray-600">Vendor</div>
+          <div className="block mb-2 font-bold text-gray-600">
+            <CustomSelect
+              statusOption={vendors}
+              defaultOption="Select Vendor"
+              name="vendor"
+              label="Vendor"
+              onChange={handleChange}
+            />
+          </div>
         </div>
         <div className="">
           <ToggleSwitch
+            name="isDiscount"
             label="Discount"
             handleToggle={onDiscountChange}
             isDiscount={productOnDiscount}

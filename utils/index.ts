@@ -16,6 +16,7 @@ import { fetchVendors } from './data/vendors'
 export * from './data/appSettings'
 export * from './data/variants'
 export * from './getProductTableColumn'
+export * from './data/uploadImages'
 
 export {
   config,

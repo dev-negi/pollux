@@ -1,27 +1,32 @@
 export const createProduct = async (data) => {
+  console.log(data)
   const {
-    title,
+    name,
     price,
+    images,
     details,
     vendorId,
     status = 'draft',
     tax = 5,
+    inventory = 0,
     isdiscount = false,
     variants,
   } = data
 
   const priceInt = parseInt(price)
-  const name = title
+  const taxInt = parseInt(tax)
+  const title = name
   const slug = title?.trim().split(' ').join('-')
 
   const body = {
     name,
     title,
+    image: images,
     price: priceInt,
     slug,
     details,
     status,
-    tax,
+    tax: taxInt,
     isdiscount,
     vendorId,
     variants,

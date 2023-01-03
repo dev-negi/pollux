@@ -34,13 +34,7 @@ const query = groq`*[_type == "product" && slug.current == $slug] {
       quantity,
       sky,
       barcode,
-      'varianttype': varianttype -> {
-        name,
-        type,
-        name,
-        value,
-        code
-      }
+      variants,
     }
 }[0]`
 

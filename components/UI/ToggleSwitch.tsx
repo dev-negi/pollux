@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
 function ToggleSwitch(props) {
-  const { label, isDiscount, handleToggle } = props
+  const { name, label, isDiscount, handleToggle } = props
   const tCls =
     'flex w-20 h-10 bg-gray-600 rounded-full transition-all duration-500'
   const cCls = 'h-10 w-10 bg-white rounded-full  transition-all duration-500'

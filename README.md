@@ -33,21 +33,18 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
-*[_type == "product" && slug.current == "bluekurtaboys"] {
-    _id,
-      name,
-      price,
-      details,
-      slug,
-      vendor,
-      tax,
-      isdiscount,
-      image,
-      variant,
-  }[0]
-
-
-
+\*[_type == "product" && slug.current == "bluekurtaboys"] {
+\_id,
+name,
+price,
+details,
+slug,
+vendor,
+tax,
+isdiscount,
+image,
+variant,
+}[0]
 
 <div>
       <div class="relative z-0 mb-6 w-full group">
@@ -168,4 +165,134 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
         </div>
       </div>
     </div>
-  
+
+
+import type { NextApiRequest, NextApiResponse } from 'next'
+import { groq } from 'next-sanity'
+
+import { client } from '../../../utils'
+import ProductDetails from '../../../types/productDetails.type'
+
+export default function handler(
+req: NextApiRequest,
+res: NextApiResponse<ProductDetails>
+) {
+if (req.method !== 'POST') {
+res.status(405).json({ message: 'Only POST requests allowed' })
+return
+}
+
+const {
+name,
+title,
+images,
+details,
+slug,
+vendorId,
+status,
+tax,
+isdiscount,
+variants,
+} = req.body
+
+const varaintList = req.body?.variants
+
+// uplaod images
+
+// const imageAsset = awiat client.assets.upload('image', )
+const imagAssetArray = []
+
+async function uplaodimages(images) {
+images.forEach(async (imageByte) => {
+const data = await client.assets.upload('image', imageByte, {
+filename: 'iamge',
+})
+imagAssetArray.push({
+\_type: 'image',
+asset: {
+\_type: 'reference',
+\_ref: data.\_id,
+},
+})
+console.log('imagAssetArray:-', imagAssetArray)
+})
+
+    const postData = {
+      _type: 'product',
+      name,
+      title,
+      image: imagAssetArray,
+      details,
+      status,
+      tax,
+      isdiscount,
+      slug: {
+        current: slug,
+      },
+    }
+
+    await createNewProduct(postData)
+
+}
+
+uplaodimages(images)
+}
+
+async function createNewProduct(postData) {
+console.log('createNewProduct:-', postData)
+client.create(postData).then((data) => {
+// Fist Create Product and get Product Id
+const prodcutId = data.\_id
+
+    // Attach vendoer to product
+    console.log('updated product:-', prodcutId)
+    console.log('updated vendeor:-', vendorId)
+    client
+      .patch(prodcutId)
+      .set({
+        vendor: { _ref: vendorId },
+      })
+      .commit()
+
+    if (varaintList?.length > 0) {
+      // for Each variant create variant, and update product-variant;
+      const variantData = []
+      varaintList.forEach((variant) => {
+        variantData.push(createVariant(variant))
+      })
+
+      Promise.allSettled(variantData).then((values) => {
+        updateProdctWithVariants(client, prodcutId, values)
+      })
+    }
+
+    res.status(200).json(data)
+
+})
+}
+function updateProdctWithVariants(client, prodcutId, values) {
+const variantRef = []
+console.log('values:-', values)
+values.forEach((data) => {
+variantRef.push({ \_ref: data.value.\_id, \_key: `v-${data.value._id}` })
+})
+
+client
+.patch(prodcutId)
+.set({
+variant: variantRef,
+})
+.commit()
+}
+
+function createVariant(variant) {
+const { title, name, price, quantity, sku, barcode, type } = variant
+return client.create({
+\_type: 'variant',
+title,
+price,
+quantity,
+sku,
+barcode,
+})
+}

@@ -6,12 +6,13 @@ const initialState = {
   item: {
     name: '',
     details: '',
+    images: [],
     price: 0,
     inventory: 0,
     tax: 5,
     isdiscount: false,
-    vendor: {},
-    variant: [],
+    vendor: '',
+    variant: '',
     discount: [],
   },
 }
@@ -21,7 +22,7 @@ export const productSlice = createSlice({
   initialState,
   reducers: {
     addProduct: (state: BasketState, action: PayloadAction<Product>) => {
-      state.items = [...state.items, action.payload]
+      state.item = { ...state.item, ...action.payload }
     },
   },
 })

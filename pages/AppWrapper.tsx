@@ -5,11 +5,8 @@ import { updateSettings } from '../redux/appSettings'
 import { fetchAppSettings } from '../utils'
 
 function AppWrapper({ stars, children }) {
-  //   console.log('AppWrapper:-', appsettings)
   const dispatch = useDispatch()
-  useEffect(() => {
-    dispatch(updateSettings(stars))
-  }, [])
+  dispatch(updateSettings(stars))
   return <div>{children}</div>
 }
 

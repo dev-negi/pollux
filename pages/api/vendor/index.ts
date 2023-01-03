@@ -4,7 +4,7 @@ import { groq } from 'next-sanity'
 import { client } from '../../../utils'
 
 const query = groq`*[_type== "vendor"] {
-    _id,
+    'id': _id,
     name,
     type,
     code

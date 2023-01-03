@@ -1,10 +1,12 @@
 import sanityClient from '@sanity/client'
 import config from './config'
 
+const { projectId, dataset, token, apiVersion } = config
 const client = sanityClient({
-  projectId: config.projectId,
-  dataset: config.dataset,
-  token: config.token,
+  projectId,
+  dataset,
+  token,
+  apiVersion,
   useCdn: true,
 })
 

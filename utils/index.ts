@@ -17,6 +17,7 @@ export * from './data/appSettings'
 export * from './data/variants'
 export * from './getProductTableColumn'
 export * from './data/uploadImages'
+export * from './groupby'
 
 export {
   config,

@@ -42,6 +42,31 @@ export default {
       type: 'string',
     },
     {
+      name: 'variants',
+      title: 'Variants',
+      type: 'array',
+      of: [
+        {
+          type: 'array',
+          name: 'varaint',
+          title: 'variant name',
+          type: 'document',
+          fields: [
+            {
+              name: 'key',
+              title: 'Key',
+              type: 'string',
+            },
+            {
+              name: 'value',
+              title: 'Value',
+              type: 'string',
+            },
+          ],
+        },
+      ],
+    },
+    {
       name: 'vendor',
       title: 'Vendor',
       type: 'reference',

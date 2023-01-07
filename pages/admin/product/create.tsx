@@ -20,7 +20,9 @@ function create(props) {
   const dispatch = useDispatch()
   const product = useSelector(selectProduct)
 
-  const productTypes = useSelector(selectAppSettingsFn('productStatusType'))
+  const productTypes = useSelector(
+    selectAppSettingsFn('productStatusType') || ''
+  )
   const { vendors, variantTypes } = props
   const [showVariantField, setShowVariantField] = useState(false)
 
@@ -47,7 +49,9 @@ function create(props) {
             <ProductDetailsEdit vendors={vendors} productTypes={productTypes} />
             <div className="">
               <button onClick={addVariant}>Add Variant</button>
-              {showVariantField ? <VariantField /> : null}
+              {showVariantField ? (
+                <VariantField variantOption={product.variantOption} />
+              ) : null}
             </div>
           </div>
           <div className="flex lg:w-1/2">
@@ -61,7 +65,7 @@ function create(props) {
         </div>
         <div className="flex m-4">
           <div className="bg-gray-100 p-10 rounded-lg shadow w-4/5">
-            <CreateVariantOptions variantOption={product.variantOption} />
+            <CreateVariantOptions variantOption={product.variantData} />
           </div>
           <div className="ml-4 bg-gray-100 p-10 rounded-lg shadow w-1/5"></div>
         </div>

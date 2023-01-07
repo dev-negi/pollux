@@ -1,16 +1,12 @@
-import Link from 'next/link'
-import { useState } from 'react'
+import React, { useState } from 'react'
 
 import AdminLayout from '../../../components/admin/AdminLayout'
-import FromFields, { VariantFields } from './FormInput'
-import useForm from '../../../hooks/useForm'
-import {
-  loginValidation,
-  fetchVendors,
-  createProduct,
-  fetchVariantType,
-  fetchVariantsByType,
-} from '../../../utils'
+import ProductDetailsEdit from '../../../components/admin/ProductDetailsEdit'
+import VariantField from '../../../components/admin/VariantField'
+import CreateVariantOptions from '../../../components/admin/CreateVariantOptions'
+import { fetchVendors, fetchVariantType, createProduct } from '../../../utils'
+import { useSelector } from 'react-redux'
+import { selectAppSettingsFn, selectProduct } from '../../../redux'
 
 export async function getServerSideProps() {
   const vendors = await fetchVendors()
@@ -20,143 +16,50 @@ export async function getServerSideProps() {
   }
 }
 
-function NewProduct(props) {
-  const { vendors, variantTypes } = props
-  const [variantList, setVariantList] = useState([])
-  const [variantId, setVariantId] = useState(1)
-  const [prodcutFormData, setProductFormData] = useState([
-    {
-      id: 1,
-      name: 'title',
-      type: 'text',
-      lable: 'Title',
-    },
-    {
-      id: 2,
-      name: 'details',
-      type: 'text',
-      lable: 'Details',
-    },
-    {
-      id: 3,
-      name: 'price',
-      type: 'number',
-      lable: 'Price',
-    },
-    {
-      id: 4,
-      name: 'vendorId',
-      type: 'select',
-      lable: 'Vendor',
-      defaultOption: 'select a vendor',
-      options: vendors,
-    },
-    {
-      id: 5,
-      type: 'variant',
-      lable: 'Variant',
-    },
-  ])
+function New({ vendors, variantTypes }) {
+  const [showVariantField, setShowVariantField] = useState(false)
+  const productTypes = useSelector(selectAppSettingsFn('productStatusType'))
+  const product = useSelector(selectProduct)
 
-  const { values, errors, handleChange, handleSubmit } = useForm(
-    createNewProduct,
-    productFormValidation
-  )
-
-  function productFormValidation(values) {
-    const errors = {}
-    return errors
-  }
-
-  async function createNewProduct() {
-    try {
-      console.log('value:-', values)
-      // if (values.name) {
-      //   createProduct(values)
-      // }
-    } catch (error) {
-      // TODO: handle errors
-      console.log(error)
-    }
-  }
-
-  const [loggedIn, setLoggedIn] = useState(false)
   const addVariant = () => {
-    const id = variantId
-
-    const variantData = {
-      id,
-      type: 'variant',
-    }
-    setVariantList((preVariantList) => [...preVariantList, variantData])
-    setVariantId((prevId) => prevId + 1)
+    setShowVariantField(true)
   }
-
-  const handleChangeVariantChange = (event, index) => {
-    handleChange(event, 'variant', index)
-  }
-  const onChangeVarinat = async (event, id) => {
-    const variantTypeValues = await fetchVariantsByType(event.target.value)
-    const index = id - 1
-    const curentVariantList = [...variantList]
-    curentVariantList[index]['variantTypeValues'] = variantTypeValues
-    setVariantList(curentVariantList)
-  }
-
-  const renderVariants = () => {
-    console.log('variantList:-', variantList)
-    return variantList.map((variant, index) => (
-      <VariantFields
-        id={variant.id}
-        onChange={(event) => handleChangeVariantChange(event, index)}
-        errors={errors}
-        values={values}
-        variantTypeValues={variant.variantTypeValues}
-        variantTypes={variantTypes}
-        onChangeVarinat={onChangeVarinat}
-      />
-    ))
+  const saveProdcut = () => {
+    createProduct(product)
   }
   return (
-    <AdminLayout title="Register">
-      <form
-        className="mx-auto max-w-screen-md"
-        onSubmit={handleSubmit}
-        noValidate
-      >
+    <AdminLayout>
+      <div>
+        <div className="absolute bottom-0 bg-gray-100">
+          <button
+            className="pl-5 pr-5 pb-3 pt-3 bg-black text-white text-xs font-bold uppercase trasition duration-500 ease-in hover:bg-black hover:text-white"
+            onClick={saveProdcut}
+          >
+            Save
+          </button>
+        </div>
         <h1 className="mb-4 text-xl">Product</h1>
-        {prodcutFormData.map((el) => {
-          return el.type === 'variant' && variantList.length > 0 ? (
-            renderVariants()
-          ) : (
-            <FromFields
-              key={el.id}
-              name={el.name}
-              type={el.type}
-              label={el.lable}
-              value={values[el.name]}
-              onChange={handleChange}
-              message={el.message}
-              disabled={el.disabled}
-              errors={errors}
-              options={el.options}
-              defaultOption={el.defaultOption}
-            />
-          )
-        })}
 
-        {/* <div className="p-4 bg-gray-100">
-          <VariantFields />
-        </div> */}
-        <div>
-          <button onClick={addVariant}>Add</button>
+        <div className="bg-gray-100 p-10 rounded-lg shadow md:w-3/4 lg:w-1/2">
+          <ProductDetailsEdit
+            vendors={vendors}
+            productTypes={productTypes}
+            product={product}
+          />
+          <button onClick={addVariant}>Add Variant</button>
+          {showVariantField ? (
+            <VariantField variantOption={product.variantOption} />
+          ) : null}
         </div>
-        <div className="mb-4">
-          <button type="submit">Save</button>
+        <div className="flex m-4">
+          <div className="bg-gray-100 p-10 rounded-lg shadow w-4/5">
+            <CreateVariantOptions variantOption={product.variantData} />
+          </div>
+          <div className="ml-4 bg-gray-100 p-10 rounded-lg shadow w-1/5"></div>
         </div>
-      </form>
+      </div>
     </AdminLayout>
   )
 }
 
-export default NewProduct
+export default New

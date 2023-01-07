@@ -8,6 +8,7 @@ const query = groq`*[_type == "product"] {
     title,
     name,
     image,
+    rating,
     price,
     status,
     inventory,

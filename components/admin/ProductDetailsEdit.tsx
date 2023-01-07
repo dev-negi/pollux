@@ -8,24 +8,26 @@ import CustomSelect from '../UI/CustomSelect'
 import { addProduct } from '../../redux'
 import { uploadImages, client } from '../../utils'
 
-function ProductDetailsEdit(props) {
-  const { vendors, productTypes } = props
+function ProductDetailsEdit({ vendors, productTypes, product }) {
   const dispatch = useDispatch()
   const optionList = productTypes
     .split('-')
     .map((type) => ({ name: type, id: type }))
 
+  const { name, details, price, inventory, tax, isdiscount, vendor, status } =
+    product
+
   const [productTypeList, setProductTypeList] = useState(optionList)
   const [productOnDiscount, setProductOnDiscount] = useState(false)
   const [productValues, setProductValues] = useState({
-    name: '',
-    details: '',
-    price: 0,
-    inventory: 0,
-    tax: 0,
-    isdiscount: false,
-    vendor: '',
-    status: 'draft',
+    name,
+    details,
+    price,
+    inventory,
+    tax,
+    isdiscount,
+    vendor,
+    status,
   })
 
   const validateProductInput = () => true
@@ -35,9 +37,6 @@ function ProductDetailsEdit(props) {
       dispatch(addProduct(productValues))
     }
   }, [productValues])
-
-  const { name, details, price, inventory, tax, isdiscount, vendor } =
-    productValues
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -49,6 +48,7 @@ function ProductDetailsEdit(props) {
   const onDiscountChange = () => {
     setProductOnDiscount((prev) => !prev)
   }
+
   return (
     <div className="">
       <InputField

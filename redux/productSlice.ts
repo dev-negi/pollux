@@ -23,9 +23,9 @@ function comboGen(combo) {
   const keys = Object.keys(combo)
   const variantDetails = {
     price: 0,
-    costPerItem: 0,
-    comparePrice: 0,
-    quntity: 0,
+    costperitem: 0,
+    compareprice: 0,
+    quantity: 0,
     sku: '',
     barcode: '',
   }
@@ -67,7 +67,6 @@ export const productSlice = createSlice({
       state.item = { ...state.item, ...action.payload }
     },
     addProductVariantOption: (state, action) => {
-      console.log('addProductVariantOption:-', action)
       state.item = {
         ...state.item,
         variantOption: [...state.item.variantOption, action.payload],
@@ -87,16 +86,31 @@ export const productSlice = createSlice({
         variantData: newVariantData,
       }
     },
+    updateVariantData: (state, action) => {
+      const { name, value, index } = action.payload
+      const data = [...state.item.variantData]
+
+      const updatedData = data.map((item, i) => {
+        return i === index ? { ...item, [name]: value } : item
+      })
+      state.item = {
+        ...state.item,
+        variantData: updatedData,
+      }
+    },
     removeProductVariantOption: (state, action) => {
       const { variantKey, variantValue } = action.payload
       const newVariantOptions = { ...state.item.variantOption }
-      const preData = newVariantOptions[variantKey](
-        (newVariantOptions[variantKey] = preData.filter(
-          (o) =>
-            o.variantKey !== action.payload.variantKey ||
-            o.variantValue !== action.payload.variantValue
-        ))
+      const preData = newVariantOptions[variantKey]
+
+      const filterData = preData.filter(
+        (o) =>
+          o.variantKey !== action.payload.variantKey ||
+          o.variantValue !== action.payload.variantValue
       )
+
+      newVariantOptions[variantKey] = filterData
+
       state.item = {
         ...state.item,
         variantOption: newVariantOptions,
@@ -108,6 +122,7 @@ export const productSlice = createSlice({
 // Action creators are generated for each case reducer function
 export const {
   addProduct,
+  updateVariantData,
   addProductVariantOption,
   updateProductVariantOption,
   removeProductVariantOption,
@@ -117,13 +132,5 @@ export const {
 export const selectProduct = (state: RootState) => state.product.item
 export const selectVariantData = (state: RootState) =>
   state.product.item.variantData
-// export const selectBasketItemsWithId = (state: RootState, id: string) => {
-//   state.basket.items.filter((item: Product) => item._id === id);
-// };
 
-// export const selectBasketTotal = (state: RootState) =>
-//   state.basket.items.reduce(
-//     (total: number, item: Product) => (total += item.price),
-//     0
-//   );
 export default productSlice.reducer

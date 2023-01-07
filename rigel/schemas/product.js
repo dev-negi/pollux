@@ -41,39 +41,7 @@ export default {
       title: 'Details',
       type: 'string',
     },
-    {
-      name: 'variants',
-      title: 'Variants',
-      type: 'array',
-      of: [
-        {
-          type: 'array',
-          name: 'varaint',
-          title: 'variant name',
-          type: 'document',
-          fields: [
-            {
-              name: 'key',
-              title: 'Key',
-              type: 'string',
-            },
-            {
-              name: 'value',
-              title: 'Value',
-              type: 'string',
-            },
-          ],
-        },
-      ],
-    },
-    {
-      name: 'vendor',
-      title: 'Vendor',
-      type: 'reference',
-      to: {
-        type: 'vendor',
-      },
-    },
+
     {
       name: 'status',
       title: 'Status',
@@ -95,6 +63,17 @@ export default {
       type: 'number',
     },
     {
+      name: 'tags',
+      title: 'Tags',
+      type: 'array',
+      of: [{type: 'string'}],
+    },
+    {
+      name: 'blurb',
+      title: 'Blurb',
+      type: 'string',
+    },
+    {
       name: 'isdiscount',
       title: 'Is Discount',
       type: 'boolean',
@@ -111,15 +90,12 @@ export default {
       ],
     },
     {
-      name: 'tags',
-      title: 'Tags',
-      type: 'array',
-      of: [{type: 'string'}],
-    },
-    {
-      name: 'blurb',
-      title: 'Blurb',
-      type: 'string',
+      name: 'vendor',
+      title: 'Vendor',
+      type: 'reference',
+      to: {
+        type: 'vendor',
+      },
     },
     {
       name: 'categories',

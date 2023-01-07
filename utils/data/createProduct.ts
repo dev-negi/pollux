@@ -1,16 +1,15 @@
 export const createProduct = async (data) => {
-  console.log(data)
   const {
     name,
     price,
     images,
     details,
-    vendorId,
+    vendor,
     status = 'draft',
     tax = 5,
     inventory = 0,
     isdiscount = false,
-    variants,
+    variantData,
   } = data
 
   const priceInt = parseInt(price)
@@ -18,6 +17,7 @@ export const createProduct = async (data) => {
   const title = name
   const slug = title?.trim().split(' ').join('-')
 
+  // const variants = prepareVarinatsData(variantData)
   const body = {
     name,
     title,
@@ -28,10 +28,12 @@ export const createProduct = async (data) => {
     status,
     tax: taxInt,
     isdiscount,
-    vendorId,
-    variants,
+    vendorId: vendor,
+    variants: variantData,
   }
 
+  console.log('body:-', body)
+  // return
   try {
     const { data } = await fetch('/api/product/create', {
       method: 'POST',

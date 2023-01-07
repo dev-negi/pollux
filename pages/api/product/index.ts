@@ -32,7 +32,7 @@ const query = groq`*[_type == "product" && slug.current == $slug] {
       costperitem,
       comparePrice,
       quantity,
-      sky,
+      sku,
       barcode,
       variants,
     }

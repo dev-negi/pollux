@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { groq } from 'next-sanity'
+import { v4 as uuidv4 } from 'uuid'
 
 import { client } from '../../../utils'
 import ProductDetails from '../../../types/productDetails.type'
@@ -24,6 +25,7 @@ export default function handler(
     isdiscount,
     variants,
   } = req.body
+
   const postData = {
     _type: 'product',
     name,
@@ -57,7 +59,7 @@ export default function handler(
       // for Each variant create variant, and update product-variant;
       const variantData = []
       varaintList.forEach((variant) => {
-        variantData.push(createVariant(variant))
+        variantData.push(createVariant(variant, name))
       })
 
       Promise.allSettled(variantData).then((values) => {
@@ -84,14 +86,30 @@ function updateProdctWithVariants(client, prodcutId, values) {
     .commit()
 }
 
-function createVariant(variant) {
-  const { title, name, price, quantity, sku, barcode, type } = variant
-  return client.create({
-    _type: 'variant',
+function createVariant(variantData, produtTitle) {
+  const {
     title,
     price,
     quantity,
     sku,
+    costperitem,
+    compareprice,
     barcode,
+    varintType,
+  } = variantData
+
+  const variants = varintType.map((v) => {
+    return { _key: uuidv4(), key: v.variantKey, value: v.variantValue }
+  })
+  return client.create({
+    _type: 'variant',
+    title: `${produtTitle} (${title})`,
+    price,
+    quantity,
+    sku,
+    costperitem,
+    compareprice,
+    barcode,
+    variants,
   })
 }

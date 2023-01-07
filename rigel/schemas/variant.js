@@ -19,7 +19,7 @@ export default {
       type: 'number',
     },
     {
-      name: 'comparePrice',
+      name: 'compareprice',
       title: 'compare price',
       type: 'number',
     },
@@ -62,16 +62,6 @@ export default {
           ],
         },
       ],
-    },
-    {
-      name: 'varianttype',
-      title: 'Varint Type',
-      type: 'string',
-    },
-    {
-      name: 'variantValue',
-      title: 'Varint Value',
-      type: 'string',
     },
     {
       name: 'images',

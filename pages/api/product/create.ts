@@ -24,6 +24,7 @@ export default function handler(
     tax,
     isdiscount,
     variants,
+    currentBarcode,
   } = req.body
 
   const postData = {
@@ -38,7 +39,7 @@ export default function handler(
       current: slug,
     },
   }
-
+  // console.log('currentBarcode:-', currentBarcode)
   const varaintList = req.body?.variants
 
   client.create(postData).then((data) => {
@@ -58,13 +59,14 @@ export default function handler(
     if (varaintList?.length > 0) {
       // for Each variant create variant, and update product-variant;
       const variantData = []
-      varaintList.forEach((variant) => {
-        variantData.push(createVariant(variant, name))
+      varaintList.forEach((variant, index) => {
+        variantData.push(createVariant(variant, name, currentBarcode, index))
       })
 
       Promise.allSettled(variantData).then((values) => {
         updateProdctWithVariants(client, prodcutId, values)
       })
+      updateBarcode(client, currentBarcode, varaintList.length)
     }
 
     res.status(200).json(data)
@@ -73,7 +75,7 @@ export default function handler(
 
 function updateProdctWithVariants(client, prodcutId, values) {
   const variantRef = []
-  console.log('values:-', values)
+  // console.log('values:-', values)
   values.forEach((data) => {
     variantRef.push({ _ref: data.value._id, _key: `v-${data.value._id}` })
   })
@@ -86,17 +88,19 @@ function updateProdctWithVariants(client, prodcutId, values) {
     .commit()
 }
 
-function createVariant(variantData, produtTitle) {
-  const {
-    title,
-    price,
-    quantity,
-    sku,
-    costperitem,
-    compareprice,
-    barcode,
-    varintType,
-  } = variantData
+function zeroPad(numberStr, n) {
+  const length = numberStr.length
+  return numberStr.padStart(n - length, 0)
+}
+
+function createVariant(variantData, produtTitle, currentBarcode, index) {
+  const variantBarcode = parseInt(currentBarcode.value) + 1 + index
+
+  const barcode = zeroPad(variantBarcode.toString(), 12)
+
+  console.log('barcode:-', barcode)
+  const { title, price, quantity, sku, costperitem, compareprice, varintType } =
+    variantData
 
   const variants = varintType.map((v) => {
     return { _key: uuidv4(), key: v.variantKey, value: v.variantValue }
@@ -112,4 +116,17 @@ function createVariant(variantData, produtTitle) {
     barcode,
     variants,
   })
+}
+
+function updateBarcode(client, barcode, l = 0) {
+  const newBarcode = parseInt(barcode.value) + l
+
+  const currentBarcode = zeroPad(newBarcode.toString(), 12)
+
+  client
+    .patch(barcode._id)
+    .set({
+      value: currentBarcode,
+    })
+    .commit()
 }

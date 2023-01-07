@@ -19,13 +19,14 @@ export async function getServerSideProps() {
 function New({ vendors, variantTypes }) {
   const [showVariantField, setShowVariantField] = useState(false)
   const productTypes = useSelector(selectAppSettingsFn('productStatusType'))
+  const currentBarcode = useSelector(selectAppSettingsFn('barcode'))
   const product = useSelector(selectProduct)
 
   const addVariant = () => {
     setShowVariantField(true)
   }
   const saveProdcut = () => {
-    createProduct(product)
+    createProduct(product, currentBarcode)
   }
   return (
     <AdminLayout>

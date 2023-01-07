@@ -35,7 +35,7 @@ App.getInitialProps = async () => {
 
   initData = initData || (await fetchAppSettings())
   const appsettings = initData.reduce(
-    (obj, item) => Object.assign(obj, { [item.key]: item.value }),
+    (obj, item) => Object.assign(obj, { [item.key]: item }),
     {}
   )
 

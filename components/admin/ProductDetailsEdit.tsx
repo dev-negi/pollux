@@ -6,19 +6,21 @@ import ToggleSwitch from '../UI/ToggleSwitch'
 import CustomSelect from '../UI/CustomSelect'
 
 import { addProduct } from '../../redux'
-import { uploadImages, client } from '../../utils'
+import { uploadImages, client, checkProductSulg } from '../../utils'
 
 function ProductDetailsEdit({ vendors, productTypes, product }) {
   const dispatch = useDispatch()
-  const optionList = productTypes
+  console.log('productTypes:-', productTypes)
+  const optionList = productTypes?.value
     .split('-')
     .map((type) => ({ name: type, id: type }))
 
   const { name, details, price, inventory, tax, isdiscount, vendor, status } =
     product
 
-  const [productTypeList, setProductTypeList] = useState(optionList)
+  const [productTypeList, setProductTypeList] = useState(optionList || [])
   const [productOnDiscount, setProductOnDiscount] = useState(false)
+  const [errors, setErrors] = useState({})
   const [productValues, setProductValues] = useState({
     name,
     details,
@@ -45,6 +47,19 @@ function ProductDetailsEdit({ vendors, productTypes, product }) {
       [name]: value,
     }))
   }
+  const checkProductNameValid = async (e) => {
+    const { value, name } = e.target
+    if (value) {
+      const data = await checkProductSulg(value.trim().split(' ').join('-'))
+      if (data) {
+        setErrors((prev) => ({
+          ...prev,
+          [name]: 'This name exist, please use a diffrent product name.',
+        }))
+      }
+    }
+  }
+  // checkProductSulg
   const onDiscountChange = () => {
     setProductOnDiscount((prev) => !prev)
   }
@@ -55,9 +70,11 @@ function ProductDetailsEdit({ vendors, productTypes, product }) {
         type="text"
         name="name"
         value={name}
+        error={errors.name}
         label="Product Title"
         placeholder="Product Title"
         onChange={handleChange}
+        onBlur={checkProductNameValid}
       />
       <InputField
         type="text"

@@ -8,6 +8,7 @@ function InputField({
   min,
   type,
   onChange,
+  onBlur,
   error,
 }) {
   return (
@@ -25,8 +26,9 @@ function InputField({
         className="border border-gray-300 shadow p-3 w-full rounded mb-"
         placeholder={placeholder}
         onChange={onChange}
+        onBlur={onBlur}
       />
-      {error && <p class="text-sm text-red-400 mt-2">error.message</p>}
+      {error && <p class="text-sm text-red-400 mt-2">{error}</p>}
     </div>
   )
 }

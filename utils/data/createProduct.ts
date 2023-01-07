@@ -1,4 +1,4 @@
-export const createProduct = async (data) => {
+export const createProduct = async (data, currentBarcode) => {
   const {
     name,
     price,
@@ -28,6 +28,7 @@ export const createProduct = async (data) => {
     status,
     tax: taxInt,
     isdiscount,
+    currentBarcode,
     vendorId: vendor,
     variants: variantData,
   }

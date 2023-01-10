@@ -1,9 +1,9 @@
-import * as React from "react";
-import clsx from "clsx";
+import * as React from 'react'
+import clsx from 'clsx'
 
-import "./CustomButton.css";
-import Icon from "../Icon/Icon";
-import CButton from "../interfaces/customButton.interface";
+import './CustomButton.css'
+import Icon from '../Icon/Icon'
+import CButton from '../interfaces/customButton.interface'
 
 const CustomButton = React.forwardRef((props: CButton, ref: any) => {
   const {
@@ -19,16 +19,16 @@ const CustomButton = React.forwardRef((props: CButton, ref: any) => {
     secondary,
     children,
     ...other
-  } = props;
+  } = props
 
-  const color = [primary && "primary", secondary && "secondary"].filter(
+  const color = [primary && 'primary', secondary && 'secondary'].filter(
     Boolean
-  )[0];
-  const classes = clsx("custom-button", color || "primary", className);
+  )[0]
+  const classes = clsx('custom-button', color || 'primary', className)
   return (
     <button
       {...other}
-      type={type || "button"}
+      type={type || 'button'}
       disabled={loading || disabled}
       className={classes}
       ref={ref}
@@ -37,7 +37,7 @@ const CustomButton = React.forwardRef((props: CButton, ref: any) => {
       {label}
       {children}
     </button>
-  );
-});
+  )
+})
 
-export default CustomButton;
+export default CustomButton

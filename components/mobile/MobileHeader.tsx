@@ -1,6 +1,6 @@
-import React from "react";
-import Link from "next/link";
-import { useDispatch } from "react-redux";
+import React from 'react'
+import Link from 'next/link'
+import { useDispatch } from 'react-redux'
 import {
   Bars4Icon,
   MagnifyingGlassIcon,
@@ -9,16 +9,16 @@ import {
   HomeIcon,
   HeartIcon,
   ChevronDoubleUpIcon,
-} from "@heroicons/react/24/outline";
+} from '@heroicons/react/24/outline'
 
-import { toggleMobileRightNav } from "../../redux/mobileAppSlice";
+import { toggleMobileRightNav } from '../../redux/mobileAppSlice'
 
 function MobileHeader({ brandName, itemInCart }) {
   // const mobileAppState = useSelector(selectRightNavVisible);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
   const handleShowRightNav = () => {
-    dispatch(toggleMobileRightNav());
-  };
+    dispatch(toggleMobileRightNav())
+  }
   return (
     <>
       <div className="flex justify-between items-center m-2 pt-2 pb-2">
@@ -88,7 +88,7 @@ function MobileHeader({ brandName, itemInCart }) {
         </div>
       </div>
     </>
-  );
+  )
 }
 
-export default MobileHeader;
+export default MobileHeader

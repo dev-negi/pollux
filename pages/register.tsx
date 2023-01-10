@@ -1,32 +1,32 @@
-import Link from "next/link";
-import { useState } from "react";
-import axios from "axios";
+import Link from 'next/link'
+import { useState } from 'react'
+import axios from 'axios'
 
-import Layout from "../components/Layout";
-import useForm from "../hooks/useForm";
-import { loginValidation, getRegisterError } from "../utils";
+import Layout from '../components/Layout'
+import useForm from '../hooks/useForm'
+import { loginValidation, getRegisterError } from '../utils'
 
 function RegisterPage() {
   const { values, errors, handleChange, handleSubmit } = useForm(
     registerUser,
     loginValidation
-  );
-  const { name, email, password } = values;
+  )
+  const { name, email, password } = values
   async function registerUser() {
-    console.log("registerUser:-", values);
+    console.log('registerUser:-', values)
     try {
-      const { data } = await axios.post("/api/users/register", {
+      const { data } = await axios.post('/api/users/register', {
         name,
         email,
         password,
-      });
+      })
     } catch (error) {
       // TODO: handle errors
-      console.log(getRegisterError(error));
+      console.log(getRegisterError(error))
     }
   }
 
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false)
 
   return (
     <Layout title="Register">
@@ -101,7 +101,7 @@ function RegisterPage() {
         </div>
       </form>
     </Layout>
-  );
+  )
 }
 
-export default RegisterPage;
+export default RegisterPage

@@ -1,21 +1,21 @@
-import Image from "next/image";
-import { useDispatch } from "react-redux";
-import { ChevronDownIcon } from "@heroicons/react/24/outline";
+import Image from 'next/image'
+import { useDispatch } from 'react-redux'
+import { ChevronDownIcon } from '@heroicons/react/24/outline'
 
-import { removeFromBasket } from "../redux/basketSlice";
-import { urlForThubnail } from "../utils";
+import { removeFromBasket } from '../redux/basketSlice'
+import { urlForThubnail } from '../utils'
 interface Props {
-  items: Product[];
-  id: string;
+  items: Product[]
+  id: string
 }
 
 function CartProduct({ id, items }: Props) {
-  console.log("cart product:-", items);
-  const dispatch = useDispatch();
+  console.log('cart product:-', items)
+  const dispatch = useDispatch()
   const removeItemFromBasket = () => {
-    dispatch(removeFromBasket({ id }));
-  };
-  const totalCartValue = items.reduce((total, item) => total + item.price, 0);
+    dispatch(removeFromBasket({ id }))
+  }
+  const totalCartValue = items.reduce((total, item) => total + item.price, 0)
 
   return (
     <div className="flex flex-col gap-x-4 border-b border-gray-300 pb-5 lg:flex-row lg:items-center">
@@ -58,7 +58,7 @@ function CartProduct({ id, items }: Props) {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default CartProduct;
+export default CartProduct

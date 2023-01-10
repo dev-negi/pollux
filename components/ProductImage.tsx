@@ -1,5 +1,5 @@
-import Link from "next/link";
-import Image from "next/image";
+import Link from 'next/link'
+import Image from 'next/image'
 
 function ProductImage({ slug, imageSource }) {
   // console.log
@@ -7,7 +7,7 @@ function ProductImage({ slug, imageSource }) {
     <Link href={`/product/${slug}`}>
       <Image src={imageSource} layout="fill" objectFit="contain" />
     </Link>
-  );
+  )
 }
 
-export default ProductImage;
+export default ProductImage

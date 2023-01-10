@@ -1,3 +1,3 @@
-const brandName = "Charakhee";
+const brandName = 'Charakhee'
 
-export { brandName };
+export { brandName }

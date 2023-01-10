@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react'
 
 function Icon() {
-  return <div>Icon</div>;
+  return <div>Icon</div>
 }
 
-export default Icon;
+export default Icon

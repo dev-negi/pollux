@@ -1,5 +1,5 @@
-import ProductItem from "./ProductItem";
-import HeroImageCarousel from "./carousel/HeroImageCarousel";
+import ProductItem from './ProductItem'
+import HeroImageCarousel from './carousel/HeroImageCarousel'
 
 function ProductContainer({ products }) {
   return (
@@ -13,7 +13,7 @@ function ProductContainer({ products }) {
         </div>
       </div>
     </>
-  );
+  )
 }
 
-export default ProductContainer;
+export default ProductContainer

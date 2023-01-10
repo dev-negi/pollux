@@ -1,10 +1,10 @@
-import React from "react";
+import React from 'react'
 
-import { urlForThubnail } from "../../utils";
+import { urlForThubnail } from '../../utils'
 
 function HeroImageCard(props) {
   const { name, primarytext, secondarytext, tertiartext, button, _id, image } =
-    props.data;
+    props.data
   //   const imageClass = index === imageRef.current ? "block" : "hidden h-auto";
   return (
     <div className="block" key={_id}>
@@ -24,7 +24,7 @@ function HeroImageCard(props) {
         </button>
       </div>
     </div>
-  );
+  )
 }
 
-export default HeroImageCard;
+export default HeroImageCard

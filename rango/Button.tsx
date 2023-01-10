@@ -1,15 +1,15 @@
-import React from "react";
+import React from 'react'
 
 interface Props {
-  tilte: string;
-  color: string;
-  height?: string;
-  hoverColor?: string;
-  onClick?: () => void;
-  width?: string;
-  loading?: string;
-  padding?: string;
-  noIcon?: boolean;
+  tilte: string
+  color: string
+  height?: string
+  hoverColor?: string
+  onClick?: () => void
+  width?: string
+  loading?: string
+  padding?: string
+  noIcon?: boolean
 }
 
 function Button({
@@ -26,9 +26,9 @@ function Button({
   return (
     <button
       className={`${height} px-6 py-2 font-semibold rounded-xl ${color} hover:${hoverColor} text-white ${
-        width ? width : "w-auto"
+        width ? width : 'w-auto'
       } ${
-        padding ? padding : ""
+        padding ? padding : ''
       } transition-all duration-300 focus:outline-none`}
       onClick={onClick}
     >
@@ -51,10 +51,10 @@ function Button({
             ></path>
           </svg>
         )}
-        {loading ? "Loading..." : title}
+        {loading ? 'Loading...' : title}
       </span>
     </button>
-  );
+  )
 }
 
-export default Button;
+export default Button

@@ -1,15 +1,15 @@
-import { createSlice } from "@reduxjs/toolkit";
-import type { PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "./store";
+import { createSlice } from '@reduxjs/toolkit'
+import type { PayloadAction } from '@reduxjs/toolkit'
+import { RootState } from './store'
 
 const initialState: MobileAppState = {
   items: {
     isRightNavVisible: false,
   },
-};
+}
 
 export const mobileAppSlice = createSlice({
-  name: "mobile",
+  name: 'mobile',
   initialState,
   reducers: {
     toggleMobileRightNav: (state: MobileAppState) => {
@@ -17,16 +17,16 @@ export const mobileAppSlice = createSlice({
       state.items = {
         ...state.items,
         isRightNavVisible: !state.items.isRightNavVisible,
-      };
+      }
     },
   },
-});
+})
 
 // Action
-export const { toggleMobileRightNav } = mobileAppSlice.actions;
+export const { toggleMobileRightNav } = mobileAppSlice.actions
 
 //selectors
 export const selectRightNavVisible = (state: RootState) =>
-  state.mobile.items.isRightNavVisible;
+  state.mobile.items.isRightNavVisible
 
-export default mobileAppSlice.reducer;
+export default mobileAppSlice.reducer

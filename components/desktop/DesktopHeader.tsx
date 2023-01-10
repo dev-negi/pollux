@@ -1,27 +1,27 @@
-import React, { useState, useEffect } from "react";
-import Link from "next/link";
+import React, { useState, useEffect } from 'react'
+import Link from 'next/link'
 
 import {
   ShoppingBagIcon,
   MagnifyingGlassIcon,
   UserCircleIcon,
   Bars3Icon,
-} from "@heroicons/react/24/outline";
+} from '@heroicons/react/24/outline'
 
 function DesktopHeader({ brandName, itemInCart }) {
-  const [offset, setOffset] = useState(0);
+  const [offset, setOffset] = useState(0)
   // TODO Clean code for transistion
   const mainDiv =
     offset > 350
-      ? "flex fixed pl-10 pr-10 pt-3 pb-3 w-screen z-50 bg-white transition ease-in duration-500 shadow-lg"
-      : "flex p-10 z-50 relative h-auto transition ease-out duration-500 opacity-1";
+      ? 'flex fixed pl-10 pr-10 pt-3 pb-3 w-screen z-50 bg-white transition ease-in duration-500 shadow-lg'
+      : 'flex p-10 z-50 relative h-auto transition ease-out duration-500 opacity-1'
   useEffect(() => {
-    const onScroll = () => setOffset(window.pageYOffset);
+    const onScroll = () => setOffset(window.pageYOffset)
     // clean up code
-    window.removeEventListener("scroll", onScroll);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+    window.removeEventListener('scroll', onScroll)
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   return (
     <header className="relative h-auto">
@@ -75,7 +75,7 @@ function DesktopHeader({ brandName, itemInCart }) {
         </div>
       </div>
     </header>
-  );
+  )
 }
 
-export default DesktopHeader;
+export default DesktopHeader

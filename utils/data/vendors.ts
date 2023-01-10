@@ -4,4 +4,3 @@ export const fetchVendors = async () => {
   const vendors = data.vendors
   return vendors
 }
-

@@ -1,23 +1,23 @@
-import Head from "next/head";
-import { useState } from "react";
+import Head from 'next/head'
+import { useState } from 'react'
 
-import Header from "./Header";
-import Footer from "./Footer";
-import { brandName } from "../constant";
-import { useSelector } from "react-redux";
-import { selectToastItems } from "../redux/toastSlice";
-import { selectRightNavVisible } from "../redux/mobileAppSlice";
-import useToaster from "../hooks/useToaster";
-import Toast from "../rango/Toast";
-import RightMobileNav from "./mobile/RightMobileNav";
+import Header from './Header'
+import Footer from './Footer'
+import { brandName } from '../constant'
+import { useSelector } from 'react-redux'
+import { selectToastItems } from '../redux/toastSlice'
+import { selectRightNavVisible } from '../redux/mobileAppSlice'
+import useToaster from '../hooks/useToaster'
+import Toast from '../rango/Toast'
+import RightMobileNav from './mobile/RightMobileNav'
 
 function Layout({ title, description, children }) {
-  const toastList = useSelector(selectToastItems);
-  const isMobilRightNaveVisible = useSelector(selectRightNavVisible);
-  console.log("isMobilRightNaveVisible:-", isMobilRightNaveVisible);
+  const toastList = useSelector(selectToastItems)
+  const isMobilRightNaveVisible = useSelector(selectRightNavVisible)
+  console.log('isMobilRightNaveVisible:-', isMobilRightNaveVisible)
 
-  const { removeToaster } = useToaster();
-  const [localState, setLocalState] = useState(false);
+  const { removeToaster } = useToaster()
+  const [localState, setLocalState] = useState(false)
 
   return (
     <>
@@ -36,7 +36,7 @@ function Layout({ title, description, children }) {
         {isMobilRightNaveVisible ? <RightMobileNav /> : null}
       </div>
     </>
-  );
+  )
 }
 
-export default Layout;
+export default Layout

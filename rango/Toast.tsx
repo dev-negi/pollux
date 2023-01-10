@@ -1,18 +1,18 @@
-import React, { useEffect } from "react";
+import React, { useEffect } from 'react'
 
 export interface ToastProps {
-  id: string;
-  destroy: () => void;
-  title: string;
-  message: string;
-  duartion?: number;
+  id: string
+  destroy: () => void
+  title: string
+  message: string
+  duartion?: number
 }
 
 const Toast: React.FC<ToastProps[]> = ({ list, remove }) => {
   return (
     <div className="absolute">
       {list.map((toast) => {
-        const { id, message } = toast;
+        const { id, message } = toast
         return (
           <div
             key={id}
@@ -37,10 +37,10 @@ const Toast: React.FC<ToastProps[]> = ({ list, remove }) => {
             <div className="flex">{message}</div>
             <div onClick={() => remove(id)}>close</div>
           </div>
-        );
+        )
       })}
     </div>
-  );
-};
+  )
+}
 
-export default Toast;
+export default Toast

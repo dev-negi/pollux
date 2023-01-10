@@ -1,14 +1,14 @@
-import React from "react";
-import Link from "next/link";
-import { useDispatch } from "react-redux";
-import { ChevronRightIcon, XMarkIcon } from "@heroicons/react/24/outline";
-import { toggleMobileRightNav } from "../../redux/mobileAppSlice";
+import React from 'react'
+import Link from 'next/link'
+import { useDispatch } from 'react-redux'
+import { ChevronRightIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import { toggleMobileRightNav } from '../../redux/mobileAppSlice'
 
 function RightMobileNav() {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
   const handleHideRightNav = () => {
-    dispatch(toggleMobileRightNav());
-  };
+    dispatch(toggleMobileRightNav())
+  }
   return (
     <div className="fixed z-50 w-1/2 bg-slate-100 h-screen right-0">
       <div className="m-5">
@@ -58,7 +58,7 @@ function RightMobileNav() {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default RightMobileNav;
+export default RightMobileNav

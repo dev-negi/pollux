@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { RootState } from './store'
+import { stat } from 'fs'
 
 const initialState = {
   item: {
@@ -100,6 +101,7 @@ export const productSlice = createSlice({
     },
     removeProductVariantOption: (state, action) => {
       const { variantKey, variantValue } = action.payload
+      const newVariantData = [...state.item.variantData]
       const newVariantOptions = { ...state.item.variantOption }
       const preData = newVariantOptions[variantKey]
 
@@ -111,9 +113,25 @@ export const productSlice = createSlice({
 
       newVariantOptions[variantKey] = filterData
 
+      const filterVariantData = newVariantData.filter((t) => {
+        //TODO correnct spelling of varintTyep
+        const filterOnVariant = t['varintType'].filter((o) => {
+          return (
+            o.variantKey !== action.payload.variantKey ||
+            o.variantValue !== action.payload.variantValue
+          )
+        })
+
+        if (filterOnVariant.length === t['varintType'].length) {
+          return true
+        }
+        return false
+      })
+
       state.item = {
         ...state.item,
         variantOption: newVariantOptions,
+        variantData: filterVariantData,
       }
     },
   },
@@ -132,5 +150,6 @@ export const {
 export const selectProduct = (state: RootState) => state.product.item
 export const selectVariantData = (state: RootState) =>
   state.product.item.variantData
-
+export const selectVariantOption = (state: RootState) =>
+  state.product.item.variantOption
 export default productSlice.reducer

@@ -12,7 +12,7 @@ function renderVarintFields(data, handleChange) {
     const { title, price, costperitem, compareprice, quantity, sku, barcode } =
       item
     return (
-      <div className="grid grid-flow-row auto-rows-max grid-cols-6">
+      <div key={title} className="grid grid-flow-row auto-rows-max grid-cols-6">
         <div className="flex justify-start items-center pb-4">{title}</div>
         <InputField
           type="number"

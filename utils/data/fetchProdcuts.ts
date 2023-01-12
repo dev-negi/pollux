@@ -1,8 +1,7 @@
-export const fetchProducts = async () => {
+export const fetchProducts = async (page = 0) => {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/product/list`
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/product/list?page=${page}`
   )
   const data = await res.json()
-  console.log('product list data:-', data)
   return data
 }

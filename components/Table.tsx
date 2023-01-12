@@ -7,7 +7,19 @@ import {
   usePagination,
 } from 'react-table'
 
-function Table({ data, columns }) {
+function Table({ data, columns, fetchProductData, currentPage }) {
+  const tableHooks = (hooks) => {
+    hooks.visibleColumns.push((columns) => [
+      ...columns,
+      {
+        id: 'Delete',
+        Header: 'Delete',
+        Cell: ({ row }) => (
+          <button onClick={() => console.log(row.values)}>Delete</button>
+        ),
+      },
+    ])
+  }
   const {
     getTableProps,
     getTableBodyProps,
@@ -33,10 +45,18 @@ function Table({ data, columns }) {
       },
     },
     useGlobalFilter,
+    tableHooks,
     useSortBy,
     usePagination
   )
-  console.log('state:-', state)
+  const customPreviousPage = () => {
+    fetchProductData(currentPage - 1)
+  }
+
+  const customNextPage = () => {
+    fetchProductData(currentPage + 1)
+  }
+
   return (
     <div className="m-2 px-4">
       <table {...getTableProps()} className="min-w-full leading-normal">
@@ -70,7 +90,7 @@ function Table({ data, columns }) {
                     >
                       {cell.column.Header === 'Name' ? (
                         <Link
-                          href={`/admin/product/?slug=${cell.row.original.slug}`}
+                          href={`/admin/product/edit/?slug=${cell.row.original.slug}`}
                         >
                           {cell.render('Cell')}
                         </Link>
@@ -85,68 +105,10 @@ function Table({ data, columns }) {
           })}
         </tbody>
       </table>
-      {/* <div className="flex justify-between items-center">
-        <div className="flex justify-evenly">
-          <div
-            className="pr-2"
-            onClick={() => gotoPage(0)}
-            disabled={!canPreviousPage}
-          >
-            {'<<'}
-          </div>
-          <div
-            className="pr-2 pl-2"
-            onClick={() => previousPage()}
-            disabled={!canPreviousPage}
-          >
-            {'<'}
-          </div>
-          <div
-            className="pr-2 pl-2"
-            onClick={() => nextPage()}
-            disabled={!canNextPage}
-          >
-            {'>'}
-          </div>
-          <div
-            className="pr-2 pl-2"
-            onClick={() => gotoPage(pageCount - 1)}
-            disabled={!canNextPage}
-          >
-            {'>>'}
-          </div>
-        </div>
-        <span>
-          Page{' '}
-          <strong>
-            {pageIndex + 1} of {pageOptions.length}
-          </strong>{' '}
-        </span>
-        <span>
-          | Go to page:{' '}
-          <input
-            type="number"
-            defaultValue={pageIndex + 1}
-            onChange={(e) => {
-              const page = e.target.value ? Number(e.target.value) - 1 : 0
-              gotoPage(page)
-            }}
-            style={{ width: '100px' }}
-          />
-        </span>{' '}
-        <select
-          value={pageSize}
-          onChange={(e) => {
-            setPageSize(Number(e.target.value))
-          }}
-        >
-          {[10, 20, 30, 40, 50].map((pageSize) => (
-            <option key={pageSize} value={pageSize}>
-              Show {pageSize}
-            </option>
-          ))}
-        </select>
-      </div> */}
+      <div className="flex justify-between items-center">
+        <button onClick={() => customPreviousPage()}>Previous</button>
+        <button onClick={() => customNextPage()}>Next</button>
+      </div>
     </div>
   )
 }

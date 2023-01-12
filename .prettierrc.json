@@ -3,10 +3,5 @@
   "trailingComma": "es5",
   "singleQuote": true,
   "tabWidth": 2,
-  "useTabs": false,
-  "extends": [
-    "next/core-web-vitals",
-    "plugin:@typescript-eslint/recommended",
-    "prettier"
-  ]
+  "useTabs": false
 }

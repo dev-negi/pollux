@@ -17,6 +17,7 @@ export * from './data/appSettings'
 export * from './data/variants'
 export * from './data/checkProductSulg'
 export * from './data/uploadImages'
+export * from './data/editProduct'
 
 export * from './getProductTableColumn'
 export * from './groupby'

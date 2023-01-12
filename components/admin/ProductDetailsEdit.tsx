@@ -107,6 +107,7 @@ function ProductDetailsEdit({ vendors, productTypes, product }) {
               statusOption={productTypeList}
               defaultOption="Select Status"
               name="status"
+              value={status}
               label="Product Status"
               onChange={handleChange}
             />
@@ -127,6 +128,7 @@ function ProductDetailsEdit({ vendors, productTypes, product }) {
             <CustomSelect
               statusOption={vendors}
               defaultOption="Select Vendor"
+              value={vendor?._id}
               name="vendor"
               label="Vendor"
               onChange={handleChange}

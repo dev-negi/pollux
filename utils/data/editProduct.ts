@@ -1,5 +1,6 @@
-export const createProduct = async (data) => {
-  const {
+export const editProduct = async (data, currentBarcode) => {
+  let {
+    _id,
     name,
     price,
     images,
@@ -8,34 +9,35 @@ export const createProduct = async (data) => {
     status = 'draft',
     tax = 5,
     inventory = 0,
-    isdiscount = false,
+    discount = false,
     variantData,
   } = data
 
-  const priceInt = parseInt(price)
-  const taxInt = parseInt(tax)
+  price = parseInt(price)
+  tax = parseInt(tax)
+  inventory = parseInt(inventory)
   const title = name
-  const slug = title?.trim().split(' ').join('-')
 
+  console.log('in editProduct:-', data)
+  return
   // const variants = prepareVarinatsData(variantData)
   const body = {
+    _id,
     name,
     title,
     image: images,
-    price: priceInt,
-    slug,
+    price,
     details,
     status,
-    tax: taxInt,
-    isdiscount,
-    vendorId: vendor,
+    tax,
+    inventory,
+    discount,
+    vendorId: vendor?._id,
     variants: variantData,
   }
 
-  console.log('body:-', body)
-  // return
   try {
-    const { data } = await fetch('/api/product/create', {
+    const { data } = await fetch('/api/product/edit', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

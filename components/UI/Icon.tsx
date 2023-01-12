@@ -1,7 +1,7 @@
 const Icon = (props) => {
-    const {src, ...other} = props;
+  const { src, ...other } = props
 
-    retrun <span {...other} src={src} />
+  retrun(<span src={src} {...other} />)
 }
 
-export default Icon;
+export default Icon

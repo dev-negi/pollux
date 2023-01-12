@@ -1,4 +1,4 @@
-default export Slug {
-    _type: "slug";
-    current: string;
+export default interface Slug {
+  _type: 'slug'
+  current: string
 }

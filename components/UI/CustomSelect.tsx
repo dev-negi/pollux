@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
 function CustomSelect(props) {
-  const { label, name, statusOption, defaultOption, onChange } = props
+  const { label, name, statusOption, defaultOption, onChange, value } = props
   //   const [selectedData, updateSelectedData] = useState('')
 
   //   function handleChange(event) {
@@ -22,7 +22,12 @@ function CustomSelect(props) {
           {label}
         </label>
       )}
-      <select name={name} className="custom-search-select" onChange={onChange}>
+      <select
+        name={name}
+        className="custom-search-select"
+        onChange={onChange}
+        value={value}
+      >
         <option>{defaultOption}</option>
         {options}
       </select>

@@ -12,7 +12,7 @@ import {
 } from '../../redux'
 import { groupBy } from '../../utils'
 
-function VariantField({ variantOption }) {
+function VariantField({ variantOption = {} }) {
   const initialVariantData = {
     variantKey: '',
     variantValue: '',

@@ -11,6 +11,8 @@ const query = groq`*[_type == "product" && slug.current == $slug] {
     price,
     details,
     slug,
+    status,
+    inventory,
     'vendor': vendor -> {
       _id,
       name,
@@ -27,6 +29,7 @@ const query = groq`*[_type == "product" && slug.current == $slug] {
       enddate,
     },
     'variant': variant[]-> {
+      _id,
       title,
       price,
       costperitem,

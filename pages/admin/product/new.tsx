@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
+import { useSelector } from 'react-redux'
 
 import AdminLayout from '../../../components/admin/AdminLayout'
 import ProductDetailsEdit from '../../../components/admin/ProductDetailsEdit'
 import VariantField from '../../../components/admin/VariantField'
 import CreateVariantOptions from '../../../components/admin/CreateVariantOptions'
 import { fetchVendors, fetchVariantType, createProduct } from '../../../utils'
-import { useSelector } from 'react-redux'
+
 import { selectAppSettingsFn, selectProduct } from '../../../redux'
 
 export async function getServerSideProps() {
